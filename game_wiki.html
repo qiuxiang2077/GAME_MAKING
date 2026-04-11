@@ -668,9 +668,18 @@
         
         <nav class="sidebar-nav">
             <div class="nav-section">
+                <h3><i class="fas fa-book"></i> 游戏设定</h3>
+                <ul class="nav-links">
+                    <li><a href="#characters" class="active"><i class="fas fa-user-friends"></i> 角色设定</a></li>
+                    <li><a href="#concept-story"><i class="fas fa-lightbulb"></i> 概念与故事</a></li>
+                    <li><a href="#gameplay"><i class="fas fa-gamepad"></i> 游戏性设定</a></li>
+                </ul>
+            </div>
+            
+            <div class="nav-section">
                 <h3><i class="fas fa-home"></i> 项目概览</h3>
                 <ul class="nav-links">
-                    <li><a href="#overview" class="active"><i class="fas fa-info-circle"></i> 项目概述</a></li>
+                    <li><a href="#overview"><i class="fas fa-info-circle"></i> 项目概述</a></li>
                     <li><a href="#core-concept"><i class="fas fa-lightbulb"></i> 核心概念</a></li>
                     <li><a href="#development-plan"><i class="fas fa-calendar-alt"></i> 开发规划</a></li>
                 </ul>
@@ -682,15 +691,6 @@
                     <li><a href="#ai-workflow"><i class="fas fa-robot"></i> AI开发流程</a></li>
                     <li><a href="#agent-coordination"><i class="fas fa-users-cog"></i> Agent协调</a></li>
                     <li><a href="#tech-specs"><i class="fas fa-code"></i> 技术实现</a></li>
-                </ul>
-            </div>
-            
-            <div class="nav-section">
-                <h3><i class="fas fa-book"></i> 游戏设定</h3>
-                <ul class="nav-links">
-                    <li><a href="#world-setting"><i class="fas fa-globe"></i> 世界观</a></li>
-                    <li><a href="#characters"><i class="fas fa-user-friends"></i> 角色设定</a></li>
-                    <li><a href="#gameplay"><i class="fas fa-gamepad"></i> 核心玩法</a></li>
                 </ul>
             </div>
             
@@ -720,16 +720,69 @@
 
     <!-- 主内容区 -->
     <main class="main-content">
-        <header class="header">
-            <h1><i class="fas fa-book"></i> 《影梦》游戏开发百科全书</h1>
-            <div class="search-box">
-                <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="搜索游戏开发相关内容...">
-            </div>
-        </header>
 
-        <!-- 项目概览部分 -->
-        <section id="overview" class="content-section">
+        <!-- 游戏设定 - 角色设定 -->
+        <!-- 概念与故事设定 -->
+        <section id="concept-story" class="content-section">
+            <div class="section-header">
+                <h2><i class="fas fa-lightbulb"></i> 概念与故事设定</h2>
+                <span class="section-badge">世界观</span>
+            </div>
+            <div class="section-content">
+                <h3>🌑 影子共生系统</h3>
+                <div class="feature-card">
+                    <h4><i class="fas fa-link"></i> 寄生关系</h4>
+                    <p><strong>寄生机制</strong>：影子寄生在人类身上，依靠宿主的生命能量和光线存在</p>
+                    <p><strong>共生特性</strong>：影子与宿主之间存在微妙的共生关系，互相影响</p>
+                    <p><strong>历史渊源</strong>：远古时期影子一族繁荣，太阳衰败后大部分影子沦为普通影子</p>
+                </div>
+                
+                <h4>影子特性</h4>
+                <ul>
+                    <li><strong>光依赖</strong>：影子依靠光而存在，在黑暗中会逐渐失去自我</li>
+                    <li><strong>梦境连接</strong>：夜晚宿主入睡后，影子可以进入梦境世界自由活动</li>
+                    <li><strong>能力成长</strong>：影子在梦境中的战斗和成长会反馈给宿主</li>
+                </ul>
+                
+                <h3>🌗 昼夜双模式系统</h3>
+                <div class="feature-card">
+                    <h4><i class="fas fa-sun"></i> 白天（局外成长）</h4>
+                    <p><strong>场景</strong>：现实世界，小男孩的日常生活</p>
+                    <p><strong>活动</strong>：校园、家庭、与他人的互动</p>
+                    <p><strong>成长</strong>：永久解锁新能力、道具、剧情内容</p>
+                    <p><strong>情绪积累</strong>：白天的经历会影响夜晚梦境的内容和难度</p>
+                </div>
+                
+                <div class="feature-card">
+                    <h4><i class="fas fa-moon"></i> 夜晚（肉鸽战斗）</h4>
+                    <p><strong>场景</strong>：梦境世界，奇幻与科幻融合的世界</p>
+                    <p><strong>活动</strong>：影子进入梦境战斗、探索、成长</p>
+                    <p><strong>机制</strong>：随机生成的关卡、局内临时强化、死亡后重生</p>
+                    <p><strong>存在挑战</strong>：在黑夜中必须不断战斗以维持自我意识</p>
+                </div>
+                
+                <h3>💭 情绪投射系统</h3>
+                <p><strong>投射机制</strong>：小男孩现实中的负面情绪投射到梦境世界中的怪物和BOSS</p>
+                <ul>
+                    <li><strong>恐惧具象化</strong>：对医生的恐惧 → 瘟疫医生形态的敌人</li>
+                    <li><strong>孤独具象化</strong>：孤独感 → 虚空、空洞形态的敌人</li>
+                    <li><strong>愤怒具象化</strong>：被压抑的愤怒 → 狂暴、破坏性的敌人</li>
+                </ul>
+                
+                <h3>📖 故事设定</h3>
+                
+                <h4>故事一：魔女的谎言</h4>
+                <p>一个关于母性、理解与和解的故事。魔女编造谎言引导主角摧毁"太阳"，真实动机是寻找生前的家、了解父母对自己的真实想法。随着冒险进行，主角发现谎言，与魔女决裂，最终理解并阻止她，在故乡阳光下与她告别。</p>
+                
+                <h4>故事二：寻找心脏的小熊</h4>
+                <p>一个关于自我接纳的故事。小熊（泰迪熊的梦境形态）一直在寻找一颗真正的心脏，相信这样就能获得完整的生命。最终揭示，心跳声一直都在小熊"体内"——这是小男孩自己的心跳，象征着自我接纳的开始。</p>
+                
+                <h4>故事三：逃离那个医生</h4>
+                <p>一个关于打破条件反射、理解痛苦意义的故事。医生在梦境中表现为恐怖的存在，带来灾厄和瘟疫。最终揭示医生实际上是梦境的免疫系统管理员，看似带来痛苦，实则在治愈和保护。</p>
+            </div>
+        </section>
+
+<section id="overview" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-info-circle"></i> 项目概述</h2>
                 <span class="section-badge">基础信息</span>
@@ -764,8 +817,7 @@
             </div>
         </section>
 
-        <!-- 核心概念部分 -->
-        <section id="core-concept" class="content-section">
+<section id="core-concept" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-lightbulb"></i> 核心概念</h2>
                 <span class="section-badge">设计理念</span>
@@ -799,8 +851,7 @@
             </div>
         </section>
 
-        <!-- 开发规划部分 -->
-        <section id="development-plan" class="content-section">
+<section id="development-plan" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-calendar-alt"></i> 16周开发规划</h2>
                 <span class="section-badge">时间线</span>
@@ -909,8 +960,7 @@
             </div>
         </section>
 
-        <!-- AI开发流程部分 -->
-        <section id="ai-workflow" class="content-section">
+<section id="ai-workflow" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-robot"></i> AI开发流程</h2>
                 <span class="section-badge">三阶段计划</span>
@@ -1016,8 +1066,7 @@
             </div>
         </section>
 
-        <!-- Agent协调部分 -->
-        <section id="agent-coordination" class="content-section">
+<section id="agent-coordination" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-users-cog"></i> Agent协调机制</h2>
                 <span class="section-badge">第二阶段</span>
@@ -1122,119 +1171,7 @@
             </div>
         </section>
 
-        <!-- 角色设定部分 -->
-        <section id="characters" class="content-section">
-            <div class="section-header">
-                <h2><i class="fas fa-user-friends"></i> 角色设定</h2>
-                <span class="section-badge">关键角色</span>
-            </div>
-            <div class="section-content">
-                <h3>👤 主角设定</h3>
-                
-                <h4>小男孩（玩家现实身份）</h4>
-                <div class="feature-card">
-                    <h4><i class="fas fa-child"></i> 核心概念</h4>
-                    <p><strong>身份</strong>：爱幻想的小男孩，游戏在现实中的主角</p>
-                    <p><strong>状态</strong>：患有慢性健康问题，需要定期看医生</p>
-                    <p><strong>特质</strong>：敏感、孤独、渴望情感连接</p>
-                    <p><strong>与影子的关系</strong>：影子寄生在小男孩身上，两者共生</p>
-                </div>
-                
-                <h4>影子（玩家梦境身份）</h4>
-                <div class="feature-card">
-                    <h4><i class="fas fa-cloud"></i> 核心概念</h4>
-                    <p><strong>存在本质</strong>：依靠光而存在的共生种族</p>
-                    <p><strong>身份</strong>：小男孩的影子，寄生在小男孩身上</p>
-                    <p><strong>核心冲突</strong>：在黑夜中维持自我存在，抵抗消逝</p>
-                    <p><strong>特殊能力</strong>：夜晚入睡后可以脱离小男孩，进入梦境世界自由活动</p>
-                </div>
-                <p><strong>世界观背景</strong>：在远古时期，天上太阳比较特别，一天没有黑夜。时代迁移，太阳的衰败导致了黑夜的诞生。原本繁荣的影子一族一旦落入黑夜，就逐渐开始失去自我，消逝在黑暗中。</p>
-                <p><strong>游戏设定</strong>：白天影子寄生在小男孩身上，夜晚进入梦境世界冒险、战斗、成长。依靠光而存在，黑夜中必须不断战斗才能保持自我意识。</p>
-                
-                <h3>🧸 寻找心脏的熊 (The Heart-Seeking Bear)</h3>
-                <div class="feature-card">
-                    <h4><i class="fas fa-heart"></i> 核心概念</h4>
-                    <p><strong>心理学基础</strong>：投射 (Projection) 防御机制</p>
-                    <p><strong>情感核心</strong>：孤独感、对安慰的渴望、自我欺骗与自我接纳</p>
-                    <p><strong>象征意义</strong>：将自身的情感需求投射到外部对象，最终发现真相在于自我接纳</p>
-                </div>
-                
-                <h4>背景故事</h4>
-                <p><strong>现实层面</strong>：小男孩在夜晚感到深深的孤独，蜷缩在床上用力拥抱着小小的泰迪熊。他渴望更多的接触，仿佛这样就能获得更多宽慰。当他聆听着泰迪熊的心跳声（扑通扑通……）时，空调的冷风让他打了个喷嚏，胸口离开了小熊，但他仍然听到了扑通扑通的声音……原来一直都是他自己的心跳。</p>
-                <p><strong>梦境映射</strong>：在梦境世界中，这只泰迪熊化身为一个寻找心脏的神秘生物。它相信只要找到一颗真正的心脏，就能获得完整的生命和情感能力。实际上，这是小男孩将自己对情感连接和生命意义的渴望投射到了泰迪熊身上。</p>
-                
-                <h4>角色设定</h4>
-                <ul>
-                    <li><strong>外貌</strong>：一个破旧的棕色泰迪熊，右眼纽扣脱落，身上有缝补痕迹，胸口处有一个空心的洞</li>
-                    <li><strong>大小</strong>：约30厘米高，可以被小男孩轻松抱在怀中</li>
-                    <li><strong>特殊特征</strong>：空洞的胸口会随着小男孩的情绪波动而发出微弱的光芒</li>
-                    <li><strong>声音</strong>：温柔但带着一丝悲伤的童声，说话时带有回声效果</li>
-                </ul>
-                
-                <h3>⚕️ 医生 (The Doctor)</h3>
-                <div class="feature-card">
-                    <h4><i class="fas fa-stethoscope"></i> 核心概念</h4>
-                    <p><strong>现实基础</strong>：医疗创伤的条件反射</p>
-                    <p><strong>叙事设计</strong>：假反派 (False Antagonist)</p>
-                    <p><strong>角色弧线</strong>：从恐惧对象到拯救者的转变</p>
-                </div>
-                
-                <h4>背景故事</h4>
-                <p><strong>现实层面</strong>：小男孩有慢性的健康问题，需要定期看医生。每次和医生对话后，医生都会和父母进行严肃的谈话，之后父母会显得很伤心和担忧。小男孩逐渐形成了条件反射：医生的出现 = 不好的事情发生 = 父母伤心。</p>
-                <p><strong>梦境映射</strong>：在梦境世界中，"医生"是一个B格很高、类似敌方干部的角色。他穿着白色的长袍，戴着鸟嘴面具，手持手术刀和医疗仪器。每次出现都会带来灾厄：区域瘟疫、怪物变异、环境恶化等。</p>
-                
-                <h4>角色设定</h4>
-                <ul>
-                    <li><strong>外貌</strong>：身高约190cm，瘦削但威严的身形，穿着沾有不明污渍的白色长袍，戴着传统的瘟疫医生鸟嘴面具</li>
-                    <li><strong>气质</strong>：冷静、理性、疏离，说话带有回声和金属质感</li>
-                    <li><strong>出场效果</strong>：伴随绿色雾气、消毒水气味和心跳监视器的声音</li>
-                    <li><strong>真实身份</strong>：梦境世界的"免疫系统管理员"，实际上站在主角这边</li>
-                </ul>
-                
-                <h3>🌙 魔女 (The Witch)</h3>
-                <div class="feature-card">
-                    <h4><i class="fas fa-moon"></i> 核心概念</h4>
-                    <p><strong>身份</strong>：幽灵，有本体的灵体（戒指/玩偶/耳环）</p>
-                    <p><strong>原型</strong>：梦主（小男孩）的妈妈——只有晚上会出现，不愿展示软弱，其实很有少女心思的女王</p>
-                    <p><strong>性格</strong>：端庄优雅，傲娇，把自己最柔软的地方都隐藏起来</p>
-                    <p><strong>核心动机</strong>：找到自己生前的家，想知道父母对自己的真实想法</p>
-                </div>
-                
-                <h4>起源故事</h4>
-                <p>终于感到孤独的魔女，在黎明的一道光到临之际留下了有着复杂情感的泪水，那滴泪水捕获了黎明的第一道光，在魔女自己都无法理解的奇迹下唤醒了主角这个影子。</p>
-                
-                <h4>剧情弧线</h4>
-                <ul>
-                    <li><strong>初始谎言</strong>：魔女给主角最初的指引是去摧毁"太阳"，编造谎言让主角摧毁一个"太阳"</li>
-                    <li><strong>真相揭露</strong>：魔女的真正动机是找到自己生前的家，她想知道自己的父母对自己的真实想法</li>
-                    <li><strong>冲突与决裂</strong>：主角与魔女这个一直以来的同伴产生分歧，最终决裂</li>
-                    <li><strong>结局</strong>：主角阻止了魔女，把寄宿魔女灵魂的娃娃放在了她梦想的家乡。在阳光照耀下，熏风与绿浪的律动中，魔女消逝</li>
-                </ul>
-                
-                <h3>🔗 角色间关联与主题融合</h3>
-                <div class="feature-card">
-                    <h4><i class="fas fa-link"></i> 情感互补</h4>
-                    <p><strong>熊</strong>：代表柔软的情感需求、自我欺骗、自我接纳</p>
-                    <p><strong>医生</strong>：代表硬性的治疗痛苦、条件反射、真相面对</p>
-                    <p><strong>魔女</strong>：代表母性羁绊、隐藏的柔软、归乡渴望</p>
-                    <p><strong>影子（主角）</strong>：代表存在本身、在黑暗中坚持自我</p>
-                    <p><strong>共同主题</strong>：都是小男孩内心世界的投射，都是帮助成长的机制</p>
-                </div>
-                
-                <h4>主题总结</h4>
-                <p>这四个角色共同体现了《影梦》的核心主题：</p>
-                <ol>
-                    <li><strong>表象vs真相</strong>：医生看似恐怖实为帮助，熊寻求外部心脏实为内部接纳，魔女的谎言背后是对家的渴望</li>
-                    <li><strong>痛苦与成长</strong>：医生的"治疗性创伤"，熊的"孤独到自我接纳"，魔女的"归乡之旅"</li>
-                    <li><strong>投射与内省</strong>：都是小男孩内心世界的投射，最终引导向自我认知</li>
-                    <li><strong>情感完整</strong>：从分离（熊与心脏分离、魔女与故乡分离）到整合（医生与主角结盟、魔女与过去和解）的旅程</li>
-                    <li><strong>母性羁绊</strong>：魔女作为母亲原型的象征，代表理解、和解与告别</li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- 技术实现部分 -->
-        <section id="tech-specs" class="content-section">
+<section id="tech-specs" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-code"></i> 技术实现要点</h2>
                 <span class="section-badge">Godot 4.x</span>
@@ -1306,8 +1243,7 @@
             </div>
         </section>
 
-        <!-- 团队结构部分 -->
-        <section id="team-structure" class="content-section">
+<section id="team-structure" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-users"></i> 团队结构</h2>
                 <span class="section-badge">人员配置</span>
@@ -1347,86 +1283,7 @@
             </div>
         </section>
 
-        <!-- GitHub管理部分 -->
-        <section id="github" class="content-section">
-            <div class="section-header">
-                <h2><i class="fab fa-github"></i> GitHub版本管理流程</h2>
-                <span class="section-badge">代码管理</span>
-            </div>
-            <div class="section-content">
-                <h3>🌿 仓库结构</h3>
-                <ul>
-                    <li><strong>主分支</strong>：<code>main</code> 用于稳定版本</li>
-                    <li><strong>开发分支</strong>：<code>develop</code> 用于日常开发</li>
-                    <li><strong>功能分支</strong>：<code>feature/*</code> 用于新功能开发</li>
-                </ul>
-                
-                <h3>📝 提交规范</h3>
-                <p>遵循Conventional Commits格式：</p>
-                <div class="tags">
-                    <span class="tag">feat:</span>
-                    <span class="tag">fix:</span>
-                    <span class="tag">chore:</span>
-                    <span class="tag">docs:</span>
-                    <span class="tag">style:</span>
-                    <span class="tag">refactor:</span>
-                    <span class="tag">test:</span>
-                </div>
-                
-                <h3>🔄 分支策略</h3>
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>分支类型</th>
-                            <th>创建来源</th>
-                            <th>合并目标</th>
-                            <th>用途</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><code>feature/</code></td>
-                            <td><code>develop</code></td>
-                            <td><code>develop</code></td>
-                            <td>新功能开发</td>
-                        </tr>
-                        <tr>
-                            <td><code>bugfix/</code></td>
-                            <td><code>develop</code></td>
-                            <td><code>develop</code></td>
-                            <td>Bug修复</td>
-                        </tr>
-                        <tr>
-                            <td><code>hotfix/</code></td>
-                            <td><code>main</code></td>
-                            <td><code>main</code> 和 <code>develop</code></td>
-                            <td>紧急生产环境修复</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <h3>🔀 Pull Request流程</h3>
-                <ol>
-                    <li>开发者在本地完成功能开发并推送到远程分支</li>
-                    <li>创建Pull Request到<code>develop</code>分支</li>
-                    <li>至少需要一名团队成员代码审查通过</li>
-                    <li>通过CI/CD流水线测试</li>
-                    <li>合并到目标分支</li>
-                </ol>
-                
-                <h3>🏷️ 标签管理</h3>
-                <ul>
-                    <li>使用语义化版本标签（<code>v1.0.0</code>）标记发布版本</li>
-                    <li>每个正式发布版本创建标签</li>
-                </ul>
-                
-                <h3>⚡ GitHub Actions</h3>
-                <p>配置自动化测试、构建和部署流水线</p>
-            </div>
-        </section>
-
-        <!-- 风险管理部分 -->
-        <section id="risk-management" class="content-section">
+<section id="risk-management" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-exclamation-triangle"></i> 风险评估与应对</h2>
                 <span class="section-badge">风险控制</span>
@@ -1497,8 +1354,7 @@
             </div>
         </section>
 
-        <!-- 成功标准部分 -->
-        <section id="success-criteria" class="content-section">
+<section id="success-criteria" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-flag-checkered"></i> 成功标准</h2>
                 <span class="section-badge">目标设定</span>
@@ -1580,8 +1436,7 @@
             </div>
         </section>
 
-        <!-- 所有文档部分 -->
-        <section id="documents" class="content-section">
+<section id="documents" class="content-section">
             <div class="section-header">
                 <h2><i class="fas fa-file-alt"></i> 所有文档</h2>
                 <span class="section-badge">文档清单</span>
@@ -1678,39 +1533,84 @@
             </div>
         </section>
 
-        <!-- 创作者信息 -->
-        <div class="creator-info">
-            <h4><i class="fas fa-user-circle"></i> 创作者信息</h4>
-            <p><strong>创作者：秋香</strong> - 《影梦》游戏项目的创作者与主要开发者</p>
-            <div class="creator-links">
-                <a href="https://github.com/qiuxiang2077" target="_blank" class="creator-link">
-                    <i class="fab fa-github"></i> GitHub首页
-                </a>
-                <a href="https://qiuxiang.moe5200.com" target="_blank" class="creator-link">
-                    <i class="fas fa-globe"></i> 个人网站
-                </a>
+<section id="github" class="content-section">
+            <div class="section-header">
+                <h2><i class="fab fa-github"></i> GitHub版本管理流程</h2>
+                <span class="section-badge">代码管理</span>
             </div>
-            <p style="margin-top: 15px; font-size: 0.9rem; color: #aaa;">
-                通过GitHub和我的个人网站了解更多关于我的项目和工作。
-            </p>
-        </div>
+            <div class="section-content">
+                <h3>🌿 仓库结构</h3>
+                <ul>
+                    <li><strong>主分支</strong>：<code>main</code> 用于稳定版本</li>
+                    <li><strong>开发分支</strong>：<code>develop</code> 用于日常开发</li>
+                    <li><strong>功能分支</strong>：<code>feature/*</code> 用于新功能开发</li>
+                </ul>
+                
+                <h3>📝 提交规范</h3>
+                <p>遵循Conventional Commits格式：</p>
+                <div class="tags">
+                    <span class="tag">feat:</span>
+                    <span class="tag">fix:</span>
+                    <span class="tag">chore:</span>
+                    <span class="tag">docs:</span>
+                    <span class="tag">style:</span>
+                    <span class="tag">refactor:</span>
+                    <span class="tag">test:</span>
+                </div>
+                
+                <h3>🔄 分支策略</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>分支类型</th>
+                            <th>创建来源</th>
+                            <th>合并目标</th>
+                            <th>用途</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>feature/</code></td>
+                            <td><code>develop</code></td>
+                            <td><code>develop</code></td>
+                            <td>新功能开发</td>
+                        </tr>
+                        <tr>
+                            <td><code>bugfix/</code></td>
+                            <td><code>develop</code></td>
+                            <td><code>develop</code></td>
+                            <td>Bug修复</td>
+                        </tr>
+                        <tr>
+                            <td><code>hotfix/</code></td>
+                            <td><code>main</code></td>
+                            <td><code>main</code> 和 <code>develop</code></td>
+                            <td>紧急生产环境修复</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <h3>🔀 Pull Request流程</h3>
+                <ol>
+                    <li>开发者在本地完成功能开发并推送到远程分支</li>
+                    <li>创建Pull Request到<code>develop</code>分支</li>
+                    <li>至少需要一名团队成员代码审查通过</li>
+                    <li>通过CI/CD流水线测试</li>
+                    <li>合并到目标分支</li>
+                </ol>
+                
+                <h3>🏷️ 标签管理</h3>
+                <ul>
+                    <li>使用语义化版本标签（<code>v1.0.0</code>）标记发布版本</li>
+                    <li>每个正式发布版本创建标签</li>
+                </ul>
+                
+                <h3>⚡ GitHub Actions</h3>
+                <p>配置自动化测试、构建和部署流水线</p>
+            </div>
+        </section>
 
-        <!-- 页脚 -->
-        <footer class="footer">
-            <p>© 2026 《影梦》游戏开发团队 | 游戏开发百科全书 v1.0</p>
-            <p>创作者: 秋香 | 最后更新: 2026年4月10日 | 文档版本: 1.0</p>
-            <div class="footer-links">
-                <a href="#overview">项目概述</a>
-                <a href="#documents">所有文档</a>
-                <a href="#github">GitHub管理</a>
-                <a href="https://github.com/qiuxiang2077" target="_blank">GitHub</a>
-                <a href="https://qiuxiang.moe5200.com" target="_blank">个人网站</a>
-            </div>
-            <p style="margin-top: 20px; font-size: 0.9rem; color: #999;">
-                本百科全书整合了《影梦》游戏开发项目的所有核心文档，包括项目概述、开发流程、角色设定、技术实现、团队协作和风险管理等内容，旨在为开发团队提供全面的参考和指导。
-            </p>
-        </footer>
-    </main>
+        </main>
 
     <script>
         // 移动端菜单切换
