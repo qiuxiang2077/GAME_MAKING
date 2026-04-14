@@ -1,61 +1,121 @@
-《影梦》(Silhouette Dream) 游戏项目开源许可证
-版权所有 (c) 2024-2026 Eason Qiu (秋香同学) - GitHub: https://github.com/qiuxiang2077
+                    GNU GENERAL PUBLIC LICENSE
+                       Version 3, 29 June 2007
 
-本程序是自由软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证第三版
-（GNU General Public License version 3，简称 GPLv3）的条款重新分发和/或修改它。
+ Copyright (C) 2024-2026 Eason Qiu (qiuxiang2077) <easonqiu2024@163.com>
 
-本程序的分发是希望它有用，但没有任何担保；甚至没有适销性或特定用途适用性的默示担保。
-有关更多详细信息，请参阅 GNU 通用公共许可证。
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-您应该已经收到了一份 GNU 通用公共许可证的副本。如果没有，请参阅
-<http://www.gnu.org/licenses/> 或中文翻译版 <https://www.gnu.org/licenses/translations.html#zh-cn>。
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
----
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## 简体中文摘要（非法律文本，仅为方便理解）
+==============================================================================
 
-### 您被允许：
-1. **商业使用**：允许将本软件用于商业目的，包括在 Steam 等平台销售
-2. **修改与衍生**：允许修改代码，创建衍生作品
-3. **复制与分发**：允许复制和分发本软件
-4. **私人使用**：允许任何私人使用、学习和研究
+                           SILHOUETTE DREAM
+                    Game Project License Information
 
-### 您必须遵守：
-1. **署名要求**：在分发时，必须保留原始版权声明和本许可证
-2. **开源要求**：如果您分发修改后的版本，必须将修改后的源代码以相同许可证开源
-3. **许可证传递**：您分发的任何衍生作品必须使用相同的 GPLv3 许可证
-4. **明确声明**：在显著位置说明本软件使用 GPLv3 许可证
+==============================================================================
 
-### 您不被允许：
-1. **去除署名**：移除或修改原始版权声明或许可证信息
-2. **闭源衍生**：分发修改版本而不开源修改后的代码
-3. **主张所有权**：声称您拥有本软件的原始知识产权
+PROJECT INFORMATION
+-------------------
+Project Name:     Silhouette Dream (影梦)
+Copyright Holder: Eason Qiu (秋香同学)
+GitHub:           https://github.com/qiuxiang2077
+Contact Email:    easonqiu2024@163.com
+License:          GNU General Public License v3.0 (GPL-3.0)
 
-### 特殊约定（针对本项目的补充条款）：
-1. **商业授权例外**：作者保留为本项目提供商业授权许可证的权利，商业授权版本不受 GPLv3 开源要求的限制
-2. **Steam 版本**：通过 Steam 等商业平台分发的版本视为已获得商业授权
-3. **资产保护**：本许可证仅适用于代码部分，美术、音频、剧情文本等创意资产可能受额外保护
+==============================================================================
 
-### 免责声明：
-本软件按"原样"提供，作者不对任何直接、间接、附带、特殊、惩罚性或后果性的损害承担责任。
+LICENSE SUMMARY
+---------------
 
-### 法律管辖：
-本许可证受中华人民共和国法律管辖，任何争议应通过友好协商解决；协商不成的，应向作者所在地有管辖权的人民法院提起诉讼。
+This project is licensed under the GNU General Public License v3.0.
 
----
+PERMISSIONS:
+  ✓ Commercial use
+  ✓ Modification
+  ✓ Distribution
+  ✓ Patent use
+  ✓ Private use
 
-## 完整法律文本
+CONDITIONS:
+  ⚠ License and copyright notice
+  ⚠ State changes
+  ⚠ Disclose source
+  ⚠ Same license
 
-本项目的完整法律条款以 GNU 通用公共许可证第三版（GPLv3）为准。
-您可以在以下位置找到完整的许可证文本：
+LIMITATIONS:
+  ✗ Liability
+  ✗ Warranty
 
-英文原版：https://www.gnu.org/licenses/gpl-3.0.txt
-中文翻译：https://www.gnu.org/licenses/translations.html#zh-cn
+==============================================================================
 
-### 联系方式：
-- **GitHub**: https://github.com/qiuxiang2077
-- **邮箱**: easonqiu2024@163.com
+SPECIAL PROVISIONS FOR THIS PROJECT
+------------------------------------
 
-如需商业授权或其他特殊使用许可，请通过上述方式联系作者。
+1. COMMERCIAL AUTHORIZATION EXCEPTION
+   The copyright holder reserves the right to offer this project under
+   alternative commercial licensing terms. Versions distributed through
+   commercial platforms (such as Steam, Epic Games Store, etc.) are
+   considered to have obtained commercial authorization.
 
-### 最后更新：2026年4月12日
+2. STEAM DISTRIBUTION
+   Distribution of this game through Steam or other commercial digital
+   distribution platforms is explicitly permitted under this license.
+   Such distribution does not constitute a violation of the GPL copyleft
+   requirements for the distributor (the copyright holder).
+
+3. ASSET PROTECTION
+   This license applies to the source code of this project. Creative assets
+   including but not limited to artwork, audio, music, story text, character
+   designs, and other original creative content may be subject to additional
+   protection and are not necessarily covered by the terms of this license.
+
+4. DUAL LICENSING
+   This project may be available under multiple licenses. The GPL v3.0
+   applies to the open source distribution. Commercial licenses may be
+   available upon request for specific use cases.
+
+==============================================================================
+
+CONTRIBUTIONS
+-------------
+
+By contributing to this project, you agree that your contributions will be
+licensed under the GPL v3.0 license. You retain copyright to your
+contributions, but grant a perpetual, worldwide, non-exclusive, royalty-free
+license to use, reproduce, modify, and distribute your contributions.
+
+==============================================================================
+
+CONTACT INFORMATION
+-------------------
+
+For commercial licensing inquiries, special permissions, or other questions
+regarding this license, please contact:
+
+  Eason Qiu
+  GitHub:  https://github.com/qiuxiang2077
+  Email:   easonqiu2024@163.com
+
+==============================================================================
+
+FULL LICENSE TEXT
+-----------------
+
+The complete legal text of the GNU General Public License v3.0 can be found at:
+
+  https://www.gnu.org/licenses/gpl-3.0.txt
+
+Or in the LICENSE-GPL file if distributed with this project.
+
+==============================================================================
+
+Last Updated: April 12, 2026
