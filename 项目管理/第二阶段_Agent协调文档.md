@@ -1,5 +1,52 @@
 # 第二阶段：正式ai编码阶段 - Agent协调文档
 
+## 🤖 AI 编程助手
+
+### godot-mcp 集成
+
+本项目已集成 **godot-mcp**（Model Context Protocol）服务器，为所有 AI Agent 提供对 Godot 4.x 引擎的直接控制能力。
+
+**重要资源**：
+- 📖 **[Godot_MCP工具使用指南](Godot_MCP工具使用指南.md)** - 详细的使用说明和使用场景
+- 📚 **[godot-mcp 中文文档](../godot-mcp/README-zh.md)** - 完整的工具参考手册
+- 🛠️ **[安装指南](../godot-mcp/安装指南.md)** - 配置和故障排除
+
+**快速引用**：
+
+```markdown
+# 核心工具（所有 Agent 必须掌握）
+- game_eval          # 运行 GDScript 代码
+- game_get_property # 获取节点属性
+- game_set_property # 设置节点属性
+- create_scene      # 创建场景
+- add_node          # 添加节点
+- run_project       # 运行项目
+- game_performance  # 性能监控
+
+# Agent B（插件开发）额外工具
+- game_spawn_node   # 动态创建节点
+- game_call_method  # 调用节点方法
+- game_raycast     # 射线检测
+- game_physics_2d   # 2D 物理查询
+
+# Agent C（美术音频）推荐工具
+- game_screenshot   # 截图对比
+- list_project_files # 查看资源
+- read_file         # 读取配置
+```
+
+### Agent B 职责扩展
+
+**必须使用 godot-mcp 进行**：
+- 所有场景创建和修改操作
+- GDScript 代码的编写和调试
+- 运行时行为测试和验证
+- 性能监控和优化
+
+**禁止**：
+- 手动打开 Godot 编辑器进行操作（除非 MCP 工具无法完成）
+- 直接修改场景文件（使用 `modify_scene_node` 替代）
+
 ## 🎯 概述
 
 本文档定义了第二阶段（正式ai编码阶段）中三个AI Agent（A、B、C）的角色分工、任务目标、工作流程和协作机制。基于第一阶段（准备阶段）生成的成果，第二阶段旨在将游戏概念转化为可执行的技术规格和艺术资源，为实际开发铺平道路。
@@ -365,9 +412,9 @@ Agent C 接收美术需求 → 创建美术音频资源
 
 ---
 
-**文档版本**：1.0  
-**创建日期**：2026年4月9日 
-**更新日期**：2026年4月11日
-**适用阶段**：第二阶段（正式编码阶段）  
+**文档版本**：1.1
+**创建日期**：2026年4月9日
+**更新日期**：2026年4月14日
+**适用阶段**：第二阶段（正式编码阶段）
 
-*注：本文档是第二阶段工作的指导性文件，所有Agent应严格遵循其中定义的角色和流程。如有调整需求，需经团队评审后更新文档。*
+*注：本文档是第二阶段工作的指导性文件，所有Agent应严格遵循其中定义的角色和流程。如有调整需求，需经团队评审后更新文档。本项目已集成 godot-mcp AI 编程助手，所有 Agent 应优先使用 MCP 工具进行 Godot 操作。*

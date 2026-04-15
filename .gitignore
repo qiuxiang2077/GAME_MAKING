@@ -1,0 +1,28 @@
+# Godot MCP - 开发工具（不应提交到仓库）
+# 使用 npm 全局安装或存放在项目外部
+godot-mcp/
+
+# Godot 项目生成的文件
+.godot/
+*.import
+*.tscn.autosave
+
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE 配置
+.vscode/settings.json
+*.code-workspace
+
+# 临时文件
+*.tmp
+*.bak
+*.swp
+*~
+
+# 操作系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
