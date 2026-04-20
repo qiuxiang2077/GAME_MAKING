@@ -1,0 +1,421 @@
+[gd_scene load_steps=13 format=3 uid="uid://c2e3qcxo13pwt"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_6f238"]
+[ext_resource type="Script" path="res://scripts/sleep_manager.gd" id="2_b7d9r"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="3_9x45t"]
+[ext_resource type="Script" path="res://scripts/collectible.gd" id="4_7y36u"]
+[ext_resource type="PackedScene" uid="uid://d2e4qcxo13pwt" path="res://ui/hud.tscn" id="5_8z76w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(40, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1"]
+radius = 16.0
+
+[node name="MazeLevel" type="Node2D"]
+
+[node name="SleepManager" type="Node" parent="."]
+script = ExtResource("2_b7d9r")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(100, 100)
+script = ExtResource("1_6f238")
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(0.6, 0.6)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="Environment"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Floor"]
+position = Vector2(800, 600)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/Floor"]
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 1700.0
+offset_bottom = 1300.0
+color = Color(0.12, 0.12, 0.15, 1)
+
+[node name="MazeWalls" type="Node2D" parent="Environment"]
+
+[node name="OuterWall1" type="StaticBody2D" parent="Environment/MazeWalls"]
+position = Vector2(0, 600)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall1"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/OuterWall1"]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="OuterWall2" type="StaticBody2D" parent="Environment/MazeWalls"]
+position = Vector2(1600, 600)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall2"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/OuterWall2"]
+offset_left = -20.0
+offset_top = -600.0
+offset_right = 20.0
+offset_bottom = 600.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="OuterWall3" type="StaticBody2D" parent="Environment/MazeWalls"]
+position = Vector2(800, 0)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall3"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/OuterWall3"]
+offset_left = -800.0
+offset_top = -20.0
+offset_right = 800.0
+offset_bottom = 20.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="OuterWall4" type="StaticBody2D" parent="Environment/MazeWalls"]
+position = Vector2(800, 1200)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall4"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/OuterWall4"]
+offset_left = -800.0
+offset_top = -20.0
+offset_right = 800.0
+offset_bottom = 20.0
+color = Color(0.2, 0.2, 0.25, 1)
+
+[node name="InnerWalls" type="Node2D" parent="Environment/MazeWalls"]
+
+[node name="Wall1" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(300, 200)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall1"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall1"]
+offset_left = -20.0
+offset_top = -150.0
+offset_right = 20.0
+offset_bottom = 150.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall2" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(600, 400)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall2"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall2"]
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall3" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(900, 300)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall3"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall3"]
+offset_left = -20.0
+offset_top = -200.0
+offset_right = 20.0
+offset_bottom = 200.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall4" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(1200, 500)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall4"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall4"]
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall5" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(450, 700)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall5"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall5"]
+offset_left = -20.0
+offset_top = -150.0
+offset_right = 20.0
+offset_bottom = 150.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall6" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(750, 800)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall6"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall6"]
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall7" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(1300, 750)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall7"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall7"]
+offset_left = -20.0
+offset_top = -200.0
+offset_right = 20.0
+offset_bottom = 200.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall8" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(200, 900)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall8"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall8"]
+offset_left = -150.0
+offset_top = -20.0
+offset_right = 150.0
+offset_bottom = 20.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall9" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(1000, 950)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall9"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall9"]
+offset_left = -250.0
+offset_top = -20.0
+offset_right = 250.0
+offset_bottom = 20.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Wall10" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
+position = Vector2(1400, 1000)
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall10"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="ColorRect" type="ColorRect" parent="Environment/MazeWalls/InnerWalls/Wall10"]
+offset_left = -20.0
+offset_top = -150.0
+offset_right = 20.0
+offset_bottom = 150.0
+color = Color(0.25, 0.25, 0.3, 1)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Enemy1" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(500, 300)
+script = ExtResource("3_9x45t")
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy1"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Enemies/Enemy1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Enemy2" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(1100, 600)
+script = ExtResource("3_9x45t")
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy2"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Enemies/Enemy2"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Enemy3" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(350, 800)
+script = ExtResource("3_9x45t")
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy3"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Enemies/Enemy3"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Enemy4" type="CharacterBody2D" parent="Enemies"]
+position = Vector2(1200, 1100)
+script = ExtResource("3_9x45t")
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy4"]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Enemies/Enemy4"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 0, 0, 1)
+
+[node name="Collectibles" type="Node2D" parent="."]
+
+[node name="Memory1" type="Area2D" parent="Collectibles"]
+position = Vector2(200, 300)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory1"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory1"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory2" type="Area2D" parent="Collectibles"]
+position = Vector2(800, 200)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory2"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory2"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory3" type="Area2D" parent="Collectibles"]
+position = Vector2(1500, 400)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory3"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory3"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory4" type="Area2D" parent="Collectibles"]
+position = Vector2(600, 600)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory4"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory4"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory5" type="Area2D" parent="Collectibles"]
+position = Vector2(100, 700)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory5"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory5"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory6" type="Area2D" parent="Collectibles"]
+position = Vector2(950, 900)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory6"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory6"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="Memory7" type="Area2D" parent="Collectibles"]
+position = Vector2(1500, 1100)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory7"]
+shape = SubResource("CircleShape2D_1")
+
+[node name="ColorRect" type="ColorRect" parent="Collectibles/Memory7"]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+color = Color(1, 1, 0, 1)
+
+[node name="HUD" parent="." instance=ExtResource("5_8z76w")]
