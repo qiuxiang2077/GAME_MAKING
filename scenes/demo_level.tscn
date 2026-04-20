@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://c2e3qcxo13pwt"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_6f238"]
+[ext_resource type="Script" path="res://scripts/sleep_manager.gd" id="2_b7d9r"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="3_9x45t"]
+[ext_resource type="Script" path="res://scripts/collectible.gd" id="4_7y36u"]
+[ext_resource type="PackedScene" path="res://ui/hud.tscn" id="5_8z76w"]
+
+[node name="DemoLevel" type="Node2D"]
+
+[node name="SleepManager" type="Node" parent="."]
+script = ExtResource("2_b7d9r")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(100, 300)
+script = ExtResource("1_6f238")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 8)
+
+[node name="RectangleShape2D" type="RectangleShape2D" parent="Player/CollisionShape2D"]
+extents = Vector2(16, 16)
+
+[node name="ColorRect" type="ColorRect" parent="Player"]
+size = Vector2(32, 32)
+position = Vector2(-16, -24)
+color = Color(0, 0, 0, 1)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(100, 300)
+current = true
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(512, 400)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+
+[node name="RectangleShape2D" type="RectangleShape2D" parent="Ground/CollisionShape2D"]
+extents = Vector2(512, 20)
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+size = Vector2(1024, 40)
+position = Vector2(-512, -20)
+color = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Wall1" type="StaticBody2D" parent="."]
+position = Vector2(0, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall1"]
+
+[node name="RectangleShape2D" type="RectangleShape2D" parent="Wall1/CollisionShape2D"]
+extents = Vector2(20, 200)
+
+[node name="ColorRect" type="ColorRect" parent="Wall1"]
+size = Vector2(40, 400)
+position = Vector2(-20, -200)
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(1024, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+
+[node name="RectangleShape2D" type="RectangleShape2D" parent="Wall2/CollisionShape2D"]
+extents = Vector2(20, 200)
+
+[node name="ColorRect" type="ColorRect" parent="Wall2"]
+size = Vector2(40, 400)
+position = Vector2(-20, -200)
+color = Color(0.3, 0.3, 0.3, 1)
+
+[node name="Enemy" type="CharacterBody2D" parent="."]
+position = Vector2(400, 360)
+script = ExtResource("3_9x45t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy"]
+position = Vector2(0, 8)
+
+[node name="RectangleShape2D" type="RectangleShape2D" parent="Enemy/CollisionShape2D"]
+extents = Vector2(16, 16)
+
+[node name="ColorRect" type="ColorRect" parent="Enemy"]
+size = Vector2(32, 32)
+position = Vector2(-16, -24)
+color = Color(1, 0, 0, 1)
+
+[node name="Collectible" type="Area2D" parent="."]
+position = Vector2(600, 360)
+script = ExtResource("4_7y36u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible"]
+
+[node name="CircleShape2D" type="CircleShape2D" parent="Collectible/CollisionShape2D"]
+radius = 16
+
+[node name="ColorRect" type="ColorRect" parent="Collectible"]
+size = Vector2(32, 32)
+position = Vector2(-16, -16)
+color = Color(1, 1, 0, 1)
+
+[node name="HUD" parent="." instance=ExtResource("5_8z76w")]

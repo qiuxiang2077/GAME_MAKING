@@ -1,0 +1,112 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Silhouette Dream"
+config/description="一个剧情向横版解谜冒险游戏"
+config/version="0.1"
+run/main_scene="uid://c2e3qcxo13pwt"
+config/features=PackedStringArray("4.6")
+config/icon="res://icon.svg"
+
+[debug]
+
+settings/collision/shapes=true
+
+[display]
+
+window/stretch/mode="2d"
+window/size/width=1024
+window/size/height=768
+
+[input]
+
+move_left={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 65
+}, {
+"device": 0,
+"input_type": 1,
+"keycode": 16777231
+}]
+}
+move_right={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 68
+}, {
+"device": 0,
+"input_type": 1,
+"keycode": 16777232
+}]
+}
+move_up={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 87
+}, {
+"device": 0,
+"input_type": 1,
+"keycode": 16777230
+}]
+}
+move_down={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 83
+}, {
+"device": 0,
+"input_type": 1,
+"keycode": 16777233
+}]
+}
+interact={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 69
+}, {
+"device": 0,
+"input_type": 1,
+"keycode": 32
+}]
+}
+running={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 16777248
+}]
+}
+hide={
+"deadzone": 0.5,
+"events": [{
+"device": 0,
+"input_type": 1,
+"keycode": 16777249
+}]
+}
+
+[rendering]
+
+quality/driver/driver_name="GLES3"
+quality/2d/snapping/use_gpu_pixel_snap=true

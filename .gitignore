@@ -1,37 +1,36 @@
-# Godot MCP - 开发工具（不应提交到仓库）
-# 使用 npm 全局安装或存放在项目外部
-godot-mcp/
-
-# Godot 项目生成的文件
+# Godot 4+ specific ignores
 .godot/
-*.import
-*.tscn.autosave
 
-# macOS 系统文件
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+
+# System files
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# IDE 配置
-.vscode/settings.json
-*.code-workspace
-
-# 临时文件
-*.tmp
-*.bak
 *.swp
+*.swo
 *~
 
-# 操作系统文件
-Thumbs.db
-ehthumbs.db
-Desktop.ini
+# IDE and editor files
+.idea/
+.vscode/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# OpenSpec 临时文件（不需要提交）
-.openspec/
-*.openspec.lock
-openspec/.workspace/
-openspec/reports/temp/
+# Build files
+build/
+export_presets.cfg
 
-# OpenSpec 活跃变更的工作状态（可选：如果想忽略进行中的工作）
-# openspec/changes/*/.openspec.local.yaml
+# Temporary files
+tmp/
+temp/
+
+# Log files
+*.log
