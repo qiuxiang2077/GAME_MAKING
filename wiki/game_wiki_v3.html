@@ -106,13 +106,29 @@
             text-shadow: 0 0 30px rgba(107, 123, 140, 0.3);
         }
 
-        /* Card Hover Effects */
+        /* Enhanced Card Hover Effects */
         .card-hover {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .card-hover::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 123, 140, 0.1), transparent);
+            transition: left 0.6s ease;
         }
         .card-hover:hover {
             transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(107, 123, 140, 0.15);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), 0 0 40px rgba(107, 123, 140, 0.2);
+            border-color: rgba(184, 176, 168, 0.15);
+        }
+        .card-hover:hover::before {
+            left: 100%;
         }
 
         /* Navigation */
@@ -146,7 +162,7 @@
             margin: 4rem 0;
         }
 
-        /* Tag Styles */
+        /* Enhanced Tag Styles */
         .tag {
             display: inline-flex;
             align-items: center;
@@ -155,6 +171,28 @@
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        .tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.6s ease;
+        }
+        .tag:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .tag:hover::before {
+            left: 100%;
         }
 
         /* Mermaid Diagrams */
@@ -170,7 +208,7 @@
             background-size: 60px 60px;
         }
 
-        /* Hero Section */
+        /* Enhanced Hero Section */
         .hero-section {
             min-height: 100vh;
             position: relative;
@@ -186,6 +224,18 @@
             background: radial-gradient(ellipse at 30% 50%, rgba(107, 123, 140, 0.08) 0%, transparent 60%);
             filter: blur(30px);
             will-change: transform;
+            animation: heroPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes heroPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.6;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
         }
 
         /* Floating Elements - 优化：减少模糊，使用GPU加速 */
@@ -239,29 +289,46 @@
             z-index: 2;
         }
 
-        /* Tab System */
+        /* Enhanced Tab System */
         .tab-btn {
             position: relative;
             padding: 0.75rem 1.5rem;
             font-weight: 500;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             border-bottom: 1px solid transparent;
             opacity: 0.6;
+            cursor: pointer;
+            overflow: hidden;
+        }
+        .tab-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(107, 123, 140, 0.1), transparent);
+            transition: left 0.6s ease;
         }
         .tab-btn:hover {
             opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        .tab-btn:hover::before {
+            left: 100%;
         }
         .tab-btn.active {
             color: #9A9085;
             border-bottom-color: #9A9085;
             opacity: 1;
+            box-shadow: 0 2px 10px rgba(107, 123, 140, 0.2);
         }
         .tab-content {
             display: none;
-            animation: fadeIn 0.6s ease;
         }
         .tab-content.active {
             display: block;
+            animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         @keyframes fadeIn {
@@ -269,18 +336,50 @@
             100% { opacity: 1; }
         }
 
-        /* Progress Bar */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Enhanced Progress Bar */
         .progress-bar {
-            height: 2px;
+            height: 4px;
             background: rgba(107, 123, 140, 0.2);
-            border-radius: 1px;
+            border-radius: 2px;
             overflow: hidden;
+            position: relative;
+        }
+        .progress-bar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: progressShine 2s infinite;
         }
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #6B7B8C, #5A6B5C);
-            border-radius: 1px;
-            transition: width 1s ease;
+            border-radius: 2px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 1;
+        }
+        @keyframes progressShine {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
         }
 
         /* Stat Card - 朦胧卡片 */
@@ -573,146 +672,149 @@ graph TB
             <!-- Character Tabs -->
             <div class="flex justify-center gap-2 mb-12 flex-wrap">
                 <button class="tab-btn active" data-tab="protagonist" style="color: #B8B0A8;">主角</button>
-                <button class="tab-btn" data-tab="shadow" style="color: #B8B0A8;">影子</button>
-                <button class="tab-btn" data-tab="witch" style="color: #B8B0A8;">魔女</button>
+                <button class="tab-btn" data-tab="important" style="color: #B8B0A8;">重要角色</button>
                 <button class="tab-btn" data-tab="npc" style="color: #B8B0A8;">NPC</button>
             </div>
 
             <!-- Protagonist Tab -->
             <div id="protagonist" class="tab-content active">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(107, 123, 140, 0.2), rgba(90, 107, 92, 0.2));"></div>
-                        <div class="relative z-10 text-center">
-                            <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #6B7B8C, #5A6B5C);">
-                                <i class="fas fa-child text-5xl text-white" style="opacity: 0.8;"></i>
+                <div class="space-y-16">
+                    <!-- 小男孩 -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(107, 123, 140, 0.2), rgba(90, 107, 92, 0.2));"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center" style="background: linear-gradient(135deg, #6B7B8C, #5A6B5C);">
+                                    <i class="fas fa-child text-5xl text-white" style="opacity: 0.8;"></i>
+                                </div>
+                                <h3 class="font-serif text-2xl font-bold" style="color: #B8B0A8;">小男孩</h3>
+                                <p class="mt-2" style="color: #7A7570;">玩家现实身份</p>
                             </div>
-                            <h3 class="font-serif text-2xl font-bold" style="color: #B8B0A8;">小男孩</h3>
-                            <p class="mt-2" style="color: #7A7570;">玩家现实身份</p>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <span class="tag bg-millennium-blue text-millennium-blue mb-3">CHAR_BOY_001</span>
+                                <h3 class="font-serif text-3xl font-bold mb-4" style="color: #B8B0A8;">小男孩</h3>
+                                <p class="leading-relaxed" style="color: #9A9085;">
+                                    爱幻想的小男孩，敏感而孤独。患有慢性健康问题，需要定期看医生。渴望情感连接，容易感到孤独。白天的生活经历会影响夜晚的梦境内容。
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="glass rounded-lg p-4">
+                                    <div class="text-sm mb-1" style="color: #7A7570;">特质</div>
+                                    <div class="font-medium" style="color: #B8B0A8;">敏感、孤独、渴望连接</div>
+                                </div>
+                                <div class="glass rounded-lg p-4">
+                                    <div class="text-sm mb-1" style="color: #7A7570;">状态</div>
+                                    <div class="font-medium" style="color: #B8B0A8;">慢性健康问题</div>
+                                </div>
+                                <div class="glass rounded-lg p-4">
+                                    <div class="text-sm mb-1" style="color: #7A7570;">场景</div>
+                                    <div class="font-medium" style="color: #B8B0A8;">校园、家庭、湖边</div>
+                                </div>
+                                <div class="glass rounded-lg p-4">
+                                    <div class="text-sm mb-1" style="color: #7A7570;">作用</div>
+                                    <div class="font-medium" style="color: #B8B0A8;">局外成长载体</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="space-y-6">
-                        <div>
-                            <span class="tag bg-millennium-blue text-millennium-blue mb-3">CHAR_BOY_001</span>
-                            <h3 class="font-serif text-3xl font-bold mb-4" style="color: #B8B0A8;">小男孩</h3>
-                            <p class="leading-relaxed" style="color: #9A9085;">
-                                爱幻想的小男孩，敏感而孤独。患有慢性健康问题，需要定期看医生。渴望情感连接，容易感到孤独。白天的生活经历会影响夜晚的梦境内容。
-                            </p>
+                    
+                    <!-- 影子 -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="space-y-6 order-2 md:order-1">
+                            <div>
+                                <span class="tag mb-3" style="background: rgba(60, 60, 70, 0.5); color: #8A8580;">CHAR_SHADOW_001</span>
+                                <h3 class="font-serif text-3xl font-bold mb-4 gradient-text">影子</h3>
+                                <p class="leading-relaxed" style="color: #9A9085;">
+                                    依靠光而存在的共生种族，寄生在小男孩身上。在远古时期，影子一族在永恒阳光下繁荣发展。太阳衰败后，落入黑夜的影子逐渐失去自我。被魔女的泪水唤醒后，获得独立意识。
+                                </p>
+                            </div>
+                            <div class="space-y-3" style="color: #9A9085;">
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-sun text-millennium-gold"></i>
+                                    <span>白天：寄生在宿主身上</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-moon text-millennium-blue"></i>
+                                    <span>夜晚：进入梦境世界冒险</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i class="fas fa-heart" style="color: #6B4A3C;"></i>
+                                    <span>核心冲突：在黑夜中维持自我</span>
+                                </div>
+                            </div>
+                            <div class="glass rounded-lg p-4 border-l-4 border-millennium-blue">
+                                <p class="text-sm italic" style="color: #9A9085;">
+                                    "影子睁开了眼睛，看见了魔女。阳光照射而下，在叶隙间洒落的点点阳光里魔女消失不见，留下了唯一的指引。"
+                                </p>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="glass rounded-lg p-4">
-                                <div class="text-sm mb-1" style="color: #7A7570;">特质</div>
-                                <div class="font-medium" style="color: #B8B0A8;">敏感、孤独、渴望连接</div>
-                            </div>
-                            <div class="glass rounded-lg p-4">
-                                <div class="text-sm mb-1" style="color: #7A7570;">状态</div>
-                                <div class="font-medium" style="color: #B8B0A8;">慢性健康问题</div>
-                            </div>
-                            <div class="glass rounded-lg p-4">
-                                <div class="text-sm mb-1" style="color: #7A7570;">场景</div>
-                                <div class="font-medium" style="color: #B8B0A8;">校园、家庭、湖边</div>
-                            </div>
-                            <div class="glass rounded-lg p-4">
-                                <div class="text-sm mb-1" style="color: #7A7570;">作用</div>
-                                <div class="font-medium" style="color: #B8B0A8;">局外成长载体</div>
+                        <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden order-1 md:order-2">
+                            <div class="absolute inset-0" style="background: linear-gradient(135deg, #1a1a20, #0a0a0f);"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center shadow-2xl" style="background: #0a0a0f; border: 2px solid #3a3a45;">
+                                    <i class="fas fa-ghost text-5xl" style="color: #5a5a65;"></i>
+                                </div>
+                                <h3 class="font-serif text-2xl font-bold" style="color: #7A7570;">影子</h3>
+                                <p class="mt-2" style="color: #5a5a65;">玩家梦境身份</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Shadow Tab -->
-            <div id="shadow" class="tab-content">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-6 order-2 md:order-1">
-                        <div>
-                            <span class="tag mb-3" style="background: rgba(60, 60, 70, 0.5); color: #8A8580;">CHAR_SHADOW_001</span>
-                            <h3 class="font-serif text-3xl font-bold mb-4 gradient-text">影子</h3>
-                            <p class="leading-relaxed" style="color: #9A9085;">
-                                依靠光而存在的共生种族，寄生在小男孩身上。在远古时期，影子一族在永恒阳光下繁荣发展。太阳衰败后，落入黑夜的影子逐渐失去自我。被魔女的泪水唤醒后，获得独立意识。
-                            </p>
-                        </div>
-                        <div class="space-y-3" style="color: #9A9085;">
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-sun text-millennium-gold"></i>
-                                <span>白天：寄生在宿主身上</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-moon text-millennium-blue"></i>
-                                <span>夜晚：进入梦境世界冒险</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fas fa-heart" style="color: #6B4A3C;"></i>
-                                <span>核心冲突：在黑夜中维持自我</span>
-                            </div>
-                        </div>
-                        <div class="glass rounded-lg p-4 border-l-4 border-millennium-blue">
-                            <p class="text-sm italic" style="color: #9A9085;">
-                                "影子睁开了眼睛，看见了魔女。阳光照射而下，在叶隙间洒落的点点阳光里魔女消失不见，留下了唯一的指引。"
-                            </p>
-                        </div>
-                    </div>
-                    <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden order-1 md:order-2">
-                        <div class="absolute inset-0" style="background: linear-gradient(135deg, #1a1a20, #0a0a0f);"></div>
-                        <div class="relative z-10 text-center">
-                            <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center shadow-2xl" style="background: #0a0a0f; border: 2px solid #3a3a45;">
-                                <i class="fas fa-ghost text-5xl" style="color: #5a5a65;"></i>
-                            </div>
-                            <h3 class="font-serif text-2xl font-bold" style="color: #7A7570;">影子</h3>
-                            <p class="mt-2" style="color: #5a5a65;">玩家梦境身份</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Witch Tab -->
-            <div id="witch" class="tab-content">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(90, 80, 95, 0.4), rgba(107, 123, 140, 0.2));"></div>
-                        <div class="relative z-10 text-center">
-                            <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center glow" style="background: linear-gradient(135deg, #7A6B7C, #6B7B8C);">
-                                <i class="fas fa-hat-wizard text-5xl text-white" style="opacity: 0.8;"></i>
-                            </div>
-                            <h3 class="font-serif text-2xl font-bold gradient-text-purple">魔女</h3>
-                            <p class="mt-2" style="color: #7A7570;">引导者与同伴</p>
-                        </div>
-                    </div>
-                    <div class="space-y-6">
-                        <div>
-                            <span class="tag mb-3" style="background: rgba(90, 80, 95, 0.3); color: #9A8A9A;">CHAR_WITCH_001</span>
-                            <h3 class="font-serif text-3xl font-bold mb-4 gradient-text-purple">魔女</h3>
-                            <p class="leading-relaxed" style="color: #9A9085;">
-                                幽灵形态的存在，外貌原型是梦主的妈妈。端庄优雅，傲娇，把自己最柔软的地方都隐藏起来。终极目标找到自己生前的家，想知道父母对自己的真实想法。
-                            </p>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 90%"></div>
-                            </div>
-                            <div class="flex justify-between text-sm" style="color: #7A7570;">
-                                <span>孤独感</span>
-                                <span>90%</span>
-                            </div>
-                        </div>
-                        <div class="glass rounded-lg p-4">
-                            <h4 class="font-bold mb-3" style="color: #B8B0A8;">角色弧线</h4>
-                            <div class="space-y-2 text-sm" style="color: #9A9085;">
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full" style="background: #7A6B7C;"></span>
-                                    <span>孤独的幽灵，用谎言掩盖真实目的</span>
+            <!-- Important Characters Tab -->
+            <div id="important" class="tab-content">
+                <div class="space-y-16">
+                    <!-- 魔女 -->
+                    <div class="grid md:grid-cols-2 gap-12 items-center">
+                        <div class="glass rounded-2xl p-8 h-96 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(90, 80, 95, 0.4), rgba(107, 123, 140, 0.2));"></div>
+                            <div class="relative z-10 text-center">
+                                <div class="w-32 h-32 rounded-full mx-auto mb-6 flex items-center justify-center glow" style="background: linear-gradient(135deg, #7A6B7C, #6B7B8C);">
+                                    <i class="fas fa-hat-wizard text-5xl text-white" style="opacity: 0.8;"></i>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full text-millennium-blue"></span>
-                                    <span>与主角结盟，成为引导者</span>
+                                <h3 class="font-serif text-2xl font-bold gradient-text-purple">魔女</h3>
+                                <p class="mt-2" style="color: #7A7570;">引导者与同伴</p>
+                            </div>
+                        </div>
+                        <div class="space-y-6">
+                            <div>
+                                <span class="tag mb-3" style="background: rgba(90, 80, 95, 0.3); color: #9A8A9A;">CHAR_WITCH_001</span>
+                                <h3 class="font-serif text-3xl font-bold mb-4 gradient-text-purple">魔女</h3>
+                                <p class="leading-relaxed" style="color: #9A9085;">
+                                    幽灵形态的存在，外貌原型是梦主的妈妈。端庄优雅，傲娇，把自己最柔软的地方都隐藏起来。终极目标找到自己生前的家，想知道父母对自己的真实想法。
+                                </p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%"></div>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full text-millennium-teal"></span>
-                                    <span>建立深厚情感连接</span>
+                                <div class="flex justify-between text-sm" style="color: #7A7570;">
+                                    <span>孤独感</span>
+                                    <span>90%</span>
                                 </div>
-                                <div class="flex items-center gap-2">
-                                    <span class="w-2 h-2 rounded-full text-millennium-gold"></span>
-                                    <span>在故乡阳光下消逝</span>
+                            </div>
+                            <div class="glass rounded-lg p-4">
+                                <h4 class="font-bold mb-3" style="color: #B8B0A8;">角色弧线</h4>
+                                <div class="space-y-2 text-sm" style="color: #9A9085;">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full" style="background: #7A6B7C;"></span>
+                                        <span>孤独的幽灵，用谎言掩盖真实目的</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full text-millennium-blue"></span>
+                                        <span>与主角结盟，成为引导者</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full text-millennium-teal"></span>
+                                        <span>建立深厚情感连接</span>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full text-millennium-gold"></span>
+                                        <span>在故乡阳光下消逝</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -735,6 +837,36 @@ graph TB
                         <div class="mt-4 flex gap-2">
                             <span class="tag text-xs" style="background: rgba(139, 119, 89, 0.2); color: #8B7759;">孤独</span>
                             <span class="tag text-xs" style="background: rgba(139, 119, 89, 0.2); color: #8B7759;">投射</span>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background: rgba(255, 99, 71, 0.3);">
+                            <i class="fas fa-shield-alt text-2xl" style="color: #FF6347;"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2" style="color: #B8B0A8;">狼桃骑士</h4>
+                        <p class="text-sm mb-3" style="color: #7A7570;">NPC_TOMATO_001</p>
+                        <p class="text-sm" style="color: #9A9085;">
+                            巨大的有着强壮四肢的西红柿，佩戴番茄头盔的骑士铠甲。来自秘鲁大森林，为了追寻正义、得到认可踏上冒险。大大咧咧、粗犷憨厚、一本正经地搞笑。
+                        </p>
+                        <div class="mt-4 flex gap-2">
+                            <span class="tag text-xs" style="background: rgba(255, 99, 71, 0.2); color: #FF6347;">正义</span>
+                            <span class="tag text-xs" style="background: rgba(255, 99, 71, 0.2); color: #FF6347;">认可</span>
+                            <span class="tag text-xs" style="background: rgba(255, 99, 71, 0.2); color: #FF6347;">搞笑</span>
+                        </div>
+                    </div>
+                    <div class="glass rounded-xl p-6 card-hover">
+                        <div class="w-16 h-16 rounded-full flex items-center justify-center mb-4" style="background: rgba(107, 123, 140, 0.3);">
+                            <i class="fas fa-user-md text-2xl" style="color: #6B7B8C;"></i>
+                        </div>
+                        <h4 class="font-bold text-lg mb-2" style="color: #B8B0A8;">医生</h4>
+                        <p class="text-sm mb-3" style="color: #7A7570;">NPC_DOCTOR_001</p>
+                        <p class="text-sm" style="color: #9A9085;">
+                            梦境中的假反派，现实中真心帮助小男孩的医生。穿着鸟嘴面具，看似带来灾厄，实则是梦境世界的免疫系统管理员。
+                        </p>
+                        <div class="mt-4 flex gap-2">
+                            <span class="tag text-xs" style="background: rgba(107, 123, 140, 0.2); color: #6B7B8C;">假反派</span>
+                            <span class="tag text-xs" style="background: rgba(107, 123, 140, 0.2); color: #6B7B8C;">治愈</span>
+                            <span class="tag text-xs" style="background: rgba(107, 123, 140, 0.2); color: #6B7B8C;">转变</span>
                         </div>
                     </div>
                 </div>
@@ -806,11 +938,11 @@ graph LR
                     <p class="text-sm" style="color: #7A7570;">利用光线、影子和环境互动解决谜题</p>
                 </div>
                 <div class="glass rounded-xl p-6 card-hover">
-                    <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(107, 74, 60, 0.2);">
-                        <i class="fas fa-fist-raised text-millennium-rust text-xl"></i>
+                    <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(107, 123, 140, 0.2);">
+                        <i class="fas fa-hand-peace text-millennium-blue text-xl"></i>
                     </div>
-                    <h4 class="font-bold text-lg mb-2" style="color: #B8B0A8;">战斗系统</h4>
-                    <p class="text-sm" style="color: #7A7570;">与情绪怪物战斗，维持自我意识</p>
+                    <h4 class="font-bold text-lg mb-2" style="color: #B8B0A8;">无战斗设计</h4>
+                    <p class="text-sm" style="color: #7A7570;">躲避、安抚、解谜、引导情绪怪物</p>
                 </div>
                 <div class="glass rounded-xl p-6 card-hover">
                     <div class="w-12 h-12 rounded-lg flex items-center justify-center mb-4" style="background: rgba(74, 85, 69, 0.3);">
@@ -818,6 +950,104 @@ graph LR
                     </div>
                     <h4 class="font-bold text-lg mb-2" style="color: #B8B0A8;">成长系统</h4>
                     <p class="text-sm" style="color: #7A7570;">梦境成长反馈给现实，解锁新能力</p>
+                </div>
+            </div>
+
+            <!-- Sleep Stage Gameplay -->
+            <div class="mt-12 glass rounded-2xl p-8">
+                <h3 class="font-serif text-2xl font-bold mb-6" style="color: #B8B0A8;">睡眠阶段玩法</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="glass rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3 text-millennium-blue">清醒期</h4>
+                        <ul class="space-y-2 text-sm" style="color: #9A9085;">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-blue mt-1"></i>
+                                <span>选择梦境区域</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-blue mt-1"></i>
+                                <span>查看记忆碎片</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-blue mt-1"></i>
+                                <span>设置目标</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3 text-millennium-teal">浅睡期</h4>
+                        <ul class="space-y-2 text-sm" style="color: #9A9085;">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-teal mt-1"></i>
+                                <span>探索场景</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-teal mt-1"></i>
+                                <span>简单解谜</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-teal mt-1"></i>
+                                <span>躲避巡逻型敌人</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3 text-millennium-rust">深睡期</h4>
+                        <ul class="space-y-2 text-sm" style="color: #9A9085;">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-rust mt-1"></i>
+                                <span>紧张躲避</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-rust mt-1"></i>
+                                <span>恐惧管理</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-rust mt-1"></i>
+                                <span>资源收集</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="glass rounded-xl p-6">
+                        <h4 class="font-bold text-lg mb-3 text-millennium-gold">REM期</h4>
+                        <ul class="space-y-2 text-sm" style="color: #9A9085;">
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-gold mt-1"></i>
+                                <span>高潮解谜</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-gold mt-1"></i>
+                                <span>情感共鸣</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i class="fas fa-check-circle text-millennium-gold mt-1"></i>
+                                <span>剧情解锁</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Player Controls -->
+            <div class="mt-12 glass rounded-2xl p-8">
+                <h3 class="font-serif text-2xl font-bold mb-6" style="color: #B8B0A8;">玩家操作</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="glass rounded-lg p-4 text-center">
+                        <div class="text-sm font-medium mb-1" style="color: #7A7570;">移动</div>
+                        <div class="font-bold" style="color: #B8B0A8;">WASD</div>
+                    </div>
+                    <div class="glass rounded-lg p-4 text-center">
+                        <div class="text-sm font-medium mb-1" style="color: #7A7570;">互动</div>
+                        <div class="font-bold" style="color: #B8B0A8;">E/空格</div>
+                    </div>
+                    <div class="glass rounded-lg p-4 text-center">
+                        <div class="text-sm font-medium mb-1" style="color: #7A7570;">快速行走</div>
+                        <div class="font-bold" style="color: #B8B0A8;">Shift</div>
+                    </div>
+                    <div class="glass rounded-lg p-4 text-center">
+                        <div class="text-sm font-medium mb-1" style="color: #7A7570;">躲藏</div>
+                        <div class="font-bold" style="color: #B8B0A8;">Ctrl</div>
+                    </div>
                 </div>
             </div>
 
@@ -837,30 +1067,77 @@ graph LR
                             <tr style="border-bottom: 1px solid rgba(184, 176, 168, 0.05);">
                                 <td class="py-4"><span class="tag" style="background: rgba(107, 74, 60, 0.2); color: #8B6A5C;">恐惧</span></td>
                                 <td class="py-4">威胁性实体</td>
-                                <td class="py-4">怪物、陷阱</td>
+                                <td class="py-4">追逐型敌人</td>
                             </tr>
                             <tr style="border-bottom: 1px solid rgba(184, 176, 168, 0.05);">
                                 <td class="py-4"><span class="tag" style="background: rgba(107, 123, 140, 0.2); color: #7A8A9A;">孤独</span></td>
                                 <td class="py-4">虚空、缺失</td>
-                                <td class="py-4">空洞、迷宫</td>
+                                <td class="py-4">潜伏型敌人</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(184, 176, 168, 0.05);">
+                                <td class="py-4"><span class="tag" style="background: rgba(154, 144, 133, 0.2); color: #9A9085;">焦虑</span></td>
+                                <td class="py-4">压迫感</td>
+                                <td class="py-4">巡逻型敌人</td>
                             </tr>
                             <tr style="border-bottom: 1px solid rgba(184, 176, 168, 0.05);">
                                 <td class="py-4"><span class="tag" style="background: rgba(160, 144, 112, 0.2); color: #9A8A6A;">愤怒</span></td>
                                 <td class="py-4">破坏性力量</td>
                                 <td class="py-4">狂暴敌人</td>
                             </tr>
-                            <tr style="border-bottom: 1px solid rgba(184, 176, 168, 0.05);">
+                            <tr>
                                 <td class="py-4"><span class="tag" style="background: rgba(90, 80, 95, 0.2); color: #8A7A8A;">悲伤</span></td>
                                 <td class="py-4">沉重、缓慢</td>
                                 <td class="py-4">沼泽、锁链</td>
                             </tr>
-                            <tr>
-                                <td class="py-4"><span class="tag" style="background: rgba(154, 144, 133, 0.2); color: #9A9085;">焦虑</span></td>
-                                <td class="py-4">压迫感</td>
-                                <td class="py-4">追逐、倒计时</td>
-                            </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+
+            <!-- Medical Elements Design -->
+            <div class="mt-12 glass rounded-2xl p-8">
+                <h3 class="font-serif text-2xl font-bold mb-6" style="color: #B8B0A8;">医学元素设计</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="glass rounded-lg p-4">
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">疾病 → 异常状态</h4>
+                        <p class="text-sm" style="color: #9A9085;">现实中的健康问题在梦境中表现为异常状态，影响游戏机制</p>
+                    </div>
+                    <div class="glass rounded-lg p-4">
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">病原 → 怪物</h4>
+                        <p class="text-sm" style="color: #9A9085;">负面情绪和健康问题的根源在梦境中具象化为怪物</p>
+                    </div>
+                    <div class="glass rounded-lg p-4">
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">心理 → 技能</h4>
+                        <p class="text-sm" style="color: #9A9085;">心理状态和情绪管理转化为游戏中的技能和能力</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Sleep States -->
+            <div class="mt-12 glass rounded-2xl p-8">
+                <h3 class="font-serif text-2xl font-bold mb-6" style="color: #B8B0A8;">特殊睡眠状态</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="glass rounded-lg p-4">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: rgba(107, 123, 140, 0.2);">
+                            <i class="fas fa-dream text-millennium-blue"></i>
+                        </div>
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">梦中梦</h4>
+                        <p class="text-sm" style="color: #9A9085;">在梦境中再次入睡，进入更深层的梦境世界</p>
+                    </div>
+                    <div class="glass rounded-lg p-4">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: rgba(160, 144, 112, 0.2);">
+                            <i class="fas fa-lightbulb text-millennium-gold"></i>
+                        </div>
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">清醒梦</h4>
+                        <p class="text-sm" style="color: #9A9085;">意识到自己在做梦，获得对梦境的部分控制权</p>
+                    </div>
+                    <div class="glass rounded-lg p-4">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center mb-3" style="background: rgba(107, 74, 60, 0.2);">
+                            <i class="fas fa-weight-hanging text-millennium-rust"></i>
+                        </div>
+                        <h4 class="font-bold mb-2" style="color: #B8B0A8;">鬼压床</h4>
+                        <p class="text-sm" style="color: #9A9085;">身体无法移动，面对恐惧实体的特殊挑战</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -957,6 +1234,38 @@ graph LR
                             <span class="tag text-xs" style="background: rgba(90, 80, 95, 0.2); color: #9A8A9A;">旋转木马</span>
                             <span class="tag text-xs text-millennium-moss">杂草</span>
                             <span class="tag text-xs text-millennium-rust">生锈</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl overflow-hidden card-hover">
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(107, 123, 140, 0.3), rgba(90, 107, 92, 0.1));">
+                        <i class="fas fa-hospital text-6xl" style="color: rgba(107, 123, 140, 0.5);"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-2" style="color: #B8B0A8;">废弃小诊所</h4>
+                        <p class="text-sm mb-4" style="color: #7A7570;">
+                            褪色的白色瓷砖，生锈的医疗器械，墙上的药品广告已经模糊不清
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag text-xs text-millennium-white">白色瓷砖</span>
+                            <span class="tag text-xs text-millennium-rust">医疗器械</span>
+                            <span class="tag text-xs text-millennium-blue">药品广告</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass rounded-xl overflow-hidden card-hover">
+                    <div class="h-48 flex items-center justify-center" style="background: linear-gradient(135deg, rgba(90, 80, 95, 0.3), rgba(107, 74, 60, 0.2));">
+                        <i class="fas fa-theater-masks text-6xl" style="color: rgba(90, 80, 95, 0.5);"></i>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-2" style="color: #B8B0A8;">废弃图书馆/大剧院</h4>
+                        <p class="text-sm mb-4" style="color: #7A7570;">
+                            落满灰尘的书架，破损的舞台幕布，褪色的红色座椅，寂静的阅读区
+                        </p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="tag text-xs text-millennium-rust">书架</span>
+                            <span class="tag text-xs text-millennium-gold">舞台</span>
+                            <span class="tag text-xs text-millennium-cream">座椅</span>
                         </div>
                     </div>
                 </div>

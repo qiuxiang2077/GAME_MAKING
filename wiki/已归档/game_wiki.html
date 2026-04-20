@@ -301,7 +301,7 @@
             <h2><i class="fas fa-gamepad"></i> 《影梦》游戏开发百科</h2>
             <p>剧情向横版解谜冒险游戏</p>
             <p style="color: var(--accent-color); font-weight: bold; margin-top: 10px;">
-                <i class="fas fa-sync-alt"></i> 最后更新: 2026年4月14日
+                <i class="fas fa-sync-alt"></i> 最后更新: 2026年4月20日
             </p>
         </div>
         <nav class="sidebar-nav">
@@ -353,10 +353,10 @@
                 <table class="data-table">
                     <tr><td><strong>项目名称</strong></td><td>影梦 (Silhouette Dream)</td></tr>
                     <tr><td><strong>游戏类型</strong></td><td>剧情向横版解谜冒险游戏</td></tr>
-                    <tr><td><strong>核心玩法</strong></td><td>解谜探索、躲避追逐、收集记忆碎片、体验剧情</td></tr>
+                    <tr><td><strong>核心玩法</strong></td><td>探索解谜导向 + 无战斗设计</td></tr>
                     <tr><td><strong>目标平台</strong></td><td>PC (Steam) / 后续考虑主机</td></tr>
                     <tr><td><strong>开发引擎</strong></td><td>Godot 4.x</td></tr>
-                    <tr><td><strong>美术风格</strong></td><td>【待决策】西式奇幻 vs 千禧年梦核风</td></tr>
+                    <tr><td><strong>美术风格</strong></td><td>千禧年梦核风</td></tr>
                     <tr><td><strong>预计开发周期</strong></td><td>12-18个月</td></tr>
                     <tr><td><strong>项目状态</strong></td><td>概念验证阶段 → 核心玩法设计阶段</td></tr>
                 </table>
@@ -466,11 +466,60 @@
                     <li><strong>欲望具现</strong>：潜意识欲望以象征形式呈现</li>
                 </ul>
 
+                <h3>🎨 美术风格</h3>
+                <div class="feature-card">
+                    <h4><i class="fas fa-palette"></i> 千禧年梦核风</h4>
+                    <h4>色彩方案</h4>
+                    <div class="mechanic-grid">
+                        <div class="mechanic-item">
+                            <h5><i class="fas fa-square"></i> 褪色的蓝玻璃</h5>
+                            <p>#6B7B8C</p>
+                        </div>
+                        <div class="mechanic-item">
+                            <h5><i class="fas fa-square"></i> 褪色的绿玻璃</h5>
+                            <p>#5A6B5C</p>
+                        </div>
+                        <div class="mechanic-item">
+                            <h5><i class="fas fa-square"></i> 白色瓷砖贴片</h5>
+                            <p>#B8B0A8</p>
+                        </div>
+                        <div class="mechanic-item">
+                            <h5><i class="fas fa-square"></i> 灰色马赛克</h5>
+                            <p>#7A7570</p>
+                        </div>
+                    </div>
+
+                    <h4>场景设计</h4>
+                    <ul>
+                        <li><strong>废弃商场</strong>：空旷的购物空间，闪烁的霓虹灯</li>
+                        <li><strong>废弃学校</strong>：空荡荡的教室，走廊尽头的光</li>
+                        <li><strong>废弃游乐场</strong>：停运的旋转木马，扭曲的摩天轮</li>
+                        <li><strong>废弃小诊所</strong>：医疗器械，消毒水气味</li>
+                        <li><strong>废弃图书馆/大剧院</strong>：满是灰尘的书籍，空旷的舞台</li>
+                    </ul>
+                </div>
+
                 <h3 id="emotion-projection">🧠 情绪投射（Emotional Projection）</h3>
                 <div class="feature-card">
                     <h4><i class="fas fa-brain"></i> 投射机制</h4>
                     <p>基于弗洛伊德的投射理论，将内在情绪外化为外部实体</p>
                     <p><strong>心理学基础</strong>：防御机制的一种表现形式，潜意识处理情绪的方式</p>
+                </div>
+
+                <h4>医学元素设计</h4>
+                <div class="mechanic-grid">
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-disease"></i> 疾病</h5>
+                        <p>→ 异常状态</p>
+                    </div>
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-virus"></i> 病原</h5>
+                        <p>→ 怪物</p>
+                    </div>
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-brain"></i> 心理</h5>
+                        <p>→ 技能</p>
+                    </div>
                 </div>
 
                 <h4>投射类型</h4>
@@ -479,11 +528,11 @@
                         <tr><th>情绪类型</th><th>投射表现</th><th>典型形态</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>恐惧</td><td>威胁性实体</td><td>怪物、陷阱</td></tr>
-                        <tr><td>孤独</td><td>虚空、缺失</td><td>空洞、迷宫</td></tr>
+                        <tr><td>恐惧</td><td>威胁性实体</td><td>追逐型敌人</td></tr>
+                        <tr><td>孤独</td><td>虚空、缺失</td><td>潜伏型敌人</td></tr>
                         <tr><td>愤怒</td><td>破坏性力量</td><td>狂暴敌人</td></tr>
                         <tr><td>悲伤</td><td>沉重、缓慢</td><td>沼泽、锁链</td></tr>
-                        <tr><td>焦虑</td><td>压迫感</td><td>追逐、倒计时</td></tr>
+                        <tr><td>焦虑</td><td>压迫感</td><td>巡逻型敌人</td></tr>
                     </tbody>
                 </table>
 
@@ -625,6 +674,45 @@
                 <span class="section-badge">玩法机制</span>
             </div>
             <div class="section-content">
+                <h3>🎮 核心玩法</h3>
+                <div class="feature-card">
+                    <h4><i class="fas fa-gamepad"></i> 核心循环</h4>
+                    <p>进入梦境 → 探索场景 → 收集记忆 → 解谜/躲避 → 推进剧情</p>
+                </div>
+
+                <h4>玩家操作</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr><th>操作</th><th>按键</th><th>功能</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>移动</td><td>WASD</td><td>角色移动</td></tr>
+                        <tr><td>互动</td><td>E/空格</td><td>与环境互动</td></tr>
+                        <tr><td>快速行走</td><td>Shift</td><td>加速移动</td></tr>
+                        <tr><td>躲藏</td><td>Ctrl</td><td>隐藏身形</td></tr>
+                    </tbody>
+                </table>
+
+                <h4>敌人互动</h4>
+                <div class="mechanic-grid">
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-running"></i> 躲避</h5>
+                        <p>避开敌人视线，利用环境隐藏</p>
+                    </div>
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-hand-paper"></i> 安抚</h5>
+                        <p>通过特定物品或动作安抚敌人</p>
+                    </div>
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-puzzle-piece"></i> 解谜</h5>
+                        <p>解决谜题分散敌人注意力</p>
+                    </div>
+                    <div class="mechanic-item">
+                        <h5><i class="fas fa-signpost"></i> 引导</h5>
+                        <p>引导敌人到特定位置</p>
+                    </div>
+                </div>
+
                 <h3>🎮 开场与游戏流程</h3>
                 
                 <h4>现实场景：黄昏归家</h4>
@@ -673,15 +761,16 @@
                 <p>游戏核心循环围绕梦境展开。每次"夜晚"（游戏关卡）都会经历不同的睡眠阶段，每个阶段提供独特的游戏体验和挑战。</p>
 
                 <h4>标准睡眠周期</h4>
-                <pre>清醒期 → 浅睡期 → 深睡期 → 快速眼动期 → [循环或结束]
+                <pre>清醒期 → 浅睡期 → 深睡期 → REM期 → [循环或结束]
    ↓        ↓        ↓          ↓
  5分钟   10分钟   10分钟     15分钟</pre>
 
                 <h4>各阶段游戏机制</h4>
                 
-                <div class="sleep-stage-card">
+                <div class="feature-card">
                     <h4><i class="fas fa-eye"></i> 清醒期（Hypnagogic State）</h4>
                     <p><strong>阶段定位</strong>：准备阶段 / 策略规划</p>
+                    <p><strong>玩法</strong>：选择梦境区域，查看记忆碎片，设置目标</p>
                     <table class="data-table">
                         <thead>
                             <tr><th>机制</th><th>说明</th><th>玩家操作</th></tr>
@@ -694,9 +783,10 @@
                     </table>
                 </div>
 
-                <div class="sleep-stage-card">
+                <div class="feature-card">
                     <h4><i class="fas fa-water"></i> 浅睡期（Light Sleep）</h4>
                     <p><strong>阶段定位</strong>：探索阶段 / 轻度挑战</p>
+                    <p><strong>玩法</strong>：探索 + 简单解谜 + 躲避巡逻型敌人</p>
                     <ul>
                         <li>环境较为稳定，适合探索</li>
                         <li>敌人较弱，适合熟悉机制</li>
@@ -704,9 +794,10 @@
                     </ul>
                 </div>
 
-                <div class="sleep-stage-card">
+                <div class="feature-card">
                     <h4><i class="fas fa-moon"></i> 深睡期（Deep Sleep）</h4>
                     <p><strong>阶段定位</strong>：挑战阶段 / 核心玩法</p>
+                    <p><strong>玩法</strong>：紧张躲避 + 恐惧管理 + 资源收集</p>
                     <ul>
                         <li>环境变得不稳定，危险增加</li>
                         <li>敌人更强，需要策略应对</li>
@@ -714,12 +805,13 @@
                     </ul>
                 </div>
 
-                <div class="sleep-stage-card">
-                    <h4><i class="fas fa-bolt"></i> 快速眼动期（REM）</h4>
-                    <p><strong>阶段定位</strong>：高潮阶段 / Boss战</p>
+                <div class="feature-card">
+                    <h4><i class="fas fa-bolt"></i> REM期（Rapid Eye Movement）</h4>
+                    <p><strong>阶段定位</strong>：高潮阶段 / 剧情解锁</p>
+                    <p><strong>玩法</strong>：高潮解谜 + 情感共鸣 + 剧情解锁</p>
                     <ul>
                         <li>梦境最活跃的阶段</li>
-                        <li>Boss战和关键剧情</li>
+                        <li>关键剧情和情感体验</li>
                         <li>情绪投射最强烈的时刻</li>
                     </ul>
                 </div>
@@ -885,7 +977,7 @@
                 </div>
 
                 <!-- 魔女 -->
-                <div class="character-card" style="max-width: 100%;">
+                <div class="character-card" style="max-width: 100%; margin-bottom: 30px;">
                     <div class="character-header">
                         <h4><i class="fas fa-hat-wizard"></i> 魔女</h4>
                         <span class="character-type">NPC_WITCH_001</span>
@@ -937,6 +1029,51 @@
                         <div class="info-box">
                             <h4><i class="fas fa-key"></i> 关键主题</h4>
                             <p>与妈妈的吵架与和解 | 对妈妈的理解与思念 | 隐藏在谎言背后的柔软</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 狼桃骑士 -->
+                <div class="character-card" style="max-width: 100%;">
+                    <div class="character-header">
+                        <h4><i class="fas fa-apple-alt"></i> 狼桃骑士</h4>
+                        <span class="character-type">NPC_TOMATO_001</span>
+                    </div>
+                    <div class="character-content">
+                        <div class="mechanic-grid">
+                            <div class="mechanic-item">
+                                <h5><i class="fas fa-brain"></i> 核心概念</h5>
+                                <p>自我认可与社会认可需求</p>
+                            </div>
+                            <div class="mechanic-item">
+                                <h5><i class="fas fa-map-marker-alt"></i> 背景</h5>
+                                <p>来自秘鲁大森林，为了追寻正义、得到认可踏上冒险</p>
+                            </div>
+                            <div class="mechanic-item">
+                                <h5><i class="fas fa-seedling"></i> 结局</h5>
+                                <p>在弥留之际悟到自我认可的真理，化作西红柿种子</p>
+                            </div>
+                        </div>
+                        
+                        <h4>角色设定</h4>
+                        <ul>
+                            <li><strong>外貌</strong>：巨大的有着强壮四肢的西红柿，佩戴番茄头盔的骑士铠甲</li>
+                            <li><strong>性格</strong>：大大咧咧、粗犷憨厚、一本正经地搞笑</li>
+                            <li><strong>特点</strong>：充满正义感，渴望得到他人认可</li>
+                        </ul>
+
+                        <h4>角色弧线</h4>
+                        <ol>
+                            <li><strong>初始状态</strong>：充满干劲的骑士，四处寻找机会证明自己</li>
+                            <li><strong>遭遇挫折</strong>：在冒险中遇到各种困难，开始怀疑自己</li>
+                            <li><strong>自我反思</strong>：在与主角的互动中，逐渐理解自我认可的重要性</li>
+                            <li><strong>最终领悟</strong>：在弥留之际，终于明白真正的认可来自内心</li>
+                            <li><strong>升华</strong>：化作西红柿种子，象征新的开始</li>
+                        </ol>
+
+                        <div class="info-box">
+                            <h4><i class="fas fa-key"></i> 关键主题</h4>
+                            <p>自我认可 vs 社会认可 | 内在价值 | 成长与蜕变</p>
                         </div>
                     </div>
                 </div>
