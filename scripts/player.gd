@@ -5,12 +5,21 @@ const RUN_SPEED = 350
 
 var is_hiding = false
 var is_running = false
+var is_pushing_box = false
+var pushed_box: Node2D = null
+
+@onready var visual = $Visual
 
 func _ready():
 	# 添加到玩家组，方便敌人查找
 	add_to_group("player")
 
 func _physics_process(delta):
+	# 如果正在推箱子，优先处理推箱子逻辑
+	if is_pushing_box and pushed_box:
+		_handle_push_box()
+		return
+	
 	# 移动控制 - 俯视角，可以在X和Y轴自由移动
 	var input_dir = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -31,10 +40,12 @@ func _physics_process(delta):
 		is_hiding = !is_hiding
 		if is_hiding:
 			# 躲藏时视觉反馈
-			$Visual.color = Color(0.2, 0.2, 0.2, 0.5)
+			if visual:
+				visual.color = Color(0.2, 0.2, 0.2, 0.5)
 		else:
 			# 取消躲藏
-			$Visual.color = Color(0, 0, 0, 1)
+			if visual:
+				visual.color = Color(0, 0, 0, 1)
 	
 	# 只有在不躲藏时才能移动
 	if !is_hiding:
@@ -48,29 +59,70 @@ func _physics_process(delta):
 		# 躲藏时不能移动
 		velocity = Vector2.ZERO
 	
+	# 移动角色
+	move_and_slide()
+	
 	# 互动控制
 	if Input.is_action_just_pressed("interact"):
 		interact()
+
+func _handle_push_box():
+	# 推箱子时的移动处理
+	var input_dir = Vector2.ZERO
+	if Input.is_action_pressed("move_right"):
+		input_dir.x += 1
+	if Input.is_action_pressed("move_left"):
+		input_dir.x -= 1
+	if Input.is_action_pressed("move_down"):
+		input_dir.y += 1
+	if Input.is_action_pressed("move_up"):
+		input_dir.y -= 1
 	
-	# 移动角色
+	if input_dir != Vector2.ZERO:
+		input_dir = input_dir.normalized()
+		velocity = input_dir * SPEED
+	else:
+		velocity = Vector2.ZERO
+	
 	move_and_slide()
+	
+	# 检查是否要停止推箱子
+	if Input.is_action_just_pressed("interact") or input_dir == Vector2.ZERO:
+		_stop_push_box()
+
+func _stop_push_box():
+	if pushed_box and pushed_box.has_method("stop_push"):
+		pushed_box.stop_push()
+	is_pushing_box = false
+	pushed_box = null
+	print("停止推箱子")
 
 func interact():
-	# 实现互动逻辑
+	# 如果已经在推箱子，停止推
+	if is_pushing_box:
+		_stop_push_box()
+		return
+	
+	# 优先检查是否可以推箱子
+	var box = _find_pushable_box()
+	if box:
+		_start_push_box(box)
+		return
+	
+	# 其他互动逻辑
 	print("Interact button pressed")
 	
-	# 检测周围可互动物体 - 使用Area2D方式更安全
-	var interact_range = 50
+	# 检测周围可互动物体
+	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
+	if not space_state:
+		print("无法获取物理空间状态")
+		return
+	
 	var query = PhysicsPointQueryParameters2D.new()
 	query.position = global_position
 	query.collision_mask = 1 << 2  # 碰撞层 2
 	query.max_results = 10
 	
-	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
-	if not space_state:
-		print("无法获取物理空间状态")
-		return
-		
 	var result = space_state.intersect_point(query)
 	
 	if result.size() > 0:
@@ -81,3 +133,64 @@ func interact():
 		elif body.is_in_group("collectible"):
 			body.collect()
 			print("Collected: " + body.name)
+
+func _find_pushable_box() -> Node2D:
+	# 查找玩家面前的箱子
+	var space_state = get_world_2d().direct_space_state
+	if not space_state:
+		return null
+	
+	# 获取输入方向
+	var input_dir = Vector2.ZERO
+	if Input.is_action_pressed("move_right"):
+		input_dir.x += 1
+	elif Input.is_action_pressed("move_left"):
+		input_dir.x -= 1
+	elif Input.is_action_pressed("move_down"):
+		input_dir.y += 1
+	elif Input.is_action_pressed("move_up"):
+		input_dir.y -= 1
+	
+	if input_dir == Vector2.ZERO:
+		# 如果没有方向输入，检查周围
+		var directions = [Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN]
+		for dir in directions:
+			var box = _check_direction_for_box(dir)
+			if box:
+				return box
+		return null
+	
+	return _check_direction_for_box(input_dir.normalized())
+
+func _check_direction_for_box(direction: Vector2) -> Node2D:
+	var space_state = get_world_2d().direct_space_state
+	if not space_state:
+		return null
+	
+	var query = PhysicsRayQueryParameters2D.new()
+	query.from = global_position
+	query.to = global_position + direction * 50
+	query.exclude = [self]
+	
+	var result = space_state.intersect_ray(query)
+	if result:
+		var collider = result.collider
+		if collider.is_in_group("pushable") and collider.has_method("start_push"):
+			return collider
+	
+	return null
+
+func _start_push_box(box: Node2D):
+	# 计算推的方向
+	var push_dir = (box.global_position - global_position).normalized()
+	
+	# 四方向对齐
+	if abs(push_dir.x) > abs(push_dir.y):
+		push_dir = Vector2.RIGHT if push_dir.x > 0 else Vector2.LEFT
+	else:
+		push_dir = Vector2.DOWN if push_dir.y > 0 else Vector2.UP
+	
+	if box.start_push(self, push_dir):
+		is_pushing_box = true
+		pushed_box = box
+		print("开始推箱子，方向: " + str(push_dir))
