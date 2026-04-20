@@ -7,7 +7,8 @@ var is_hiding = false
 var is_running = false
 
 func _ready():
-	pass
+	# 添加到玩家组，方便敌人查找
+	add_to_group("player")
 
 func _physics_process(delta):
 	# 移动控制 - 俯视角，可以在X和Y轴自由移动
@@ -30,10 +31,10 @@ func _physics_process(delta):
 		is_hiding = !is_hiding
 		if is_hiding:
 			# 躲藏时视觉反馈
-			$ColorRect.color = Color(0.2, 0.2, 0.2, 0.5)
+			$Visual.color = Color(0.2, 0.2, 0.2, 0.5)
 		else:
 			# 取消躲藏
-			$ColorRect.color = Color(0, 0, 0, 1)
+			$Visual.color = Color(0, 0, 0, 1)
 	
 	# 只有在不躲藏时才能移动
 	if !is_hiding:

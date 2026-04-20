@@ -71,6 +71,10 @@ hide={
 ]
 }
 
+[autoload]
+
+GameManager="*res://scripts/game_manager.gd"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
