@@ -24,10 +24,16 @@ var time_remaining = stage_durations[current_stage]
 var fear_level = 0
 var max_fear_level = 100
 
+# 情绪能量（REM期使用）
+var emotional_energy = 0
+var max_emotional_energy = 100
+
 # 信号
 signal stage_changed(new_stage)
 signal time_updated(remaining)
 signal fear_updated(level)
+signal emotional_energy_updated(energy)
+signal fear_panic_triggered()
 
 var timer = null
 
@@ -53,6 +59,17 @@ func _on_timer_timeout():
 			if fear_level > max_fear_level:
 				fear_level = max_fear_level
 			fear_updated.emit(fear_level)
+			
+			# 检查是否触发恐慌
+			if fear_level >= 80:
+				fear_panic_triggered.emit()
+		
+		# REM期情绪能量自然恢复
+		elif current_stage == SleepStage.REM:
+			emotional_energy += 0.3
+			if emotional_energy > max_emotional_energy:
+				emotional_energy = max_emotional_energy
+			emotional_energy_updated.emit(emotional_energy)
 	else:
 		# 切换到下一个阶段
 		_next_stage()
@@ -64,14 +81,19 @@ func _next_stage():
 func _update_stage(new_stage):
 	current_stage = new_stage
 	time_remaining = stage_durations[current_stage]
-	fear_level = 0
 	
 	# 重置恐惧值
 	if current_stage != SleepStage.DEEP_SLEEP:
 		fear_level = 0
+		fear_updated.emit(fear_level)
+	
+	# 重置情绪能量
+	if current_stage != SleepStage.REM:
+		emotional_energy = 0
+		emotional_energy_updated.emit(emotional_energy)
 	
 	stage_changed.emit(current_stage)
-	print("睡眠阶段切换到: " + str(current_stage))
+	print("睡眠阶段切换到: " + get_stage_name())
 
 func get_stage_name():
 	match current_stage:
@@ -91,7 +113,35 @@ func reduce_fear(amount):
 	fear_level = max(0, fear_level - amount)
 	fear_updated.emit(fear_level)
 
+func add_emotional_energy(amount):
+	"""增加情绪能量"""
+	if current_stage == SleepStage.REM:
+		emotional_energy = min(max_emotional_energy, emotional_energy + amount)
+		emotional_energy_updated.emit(emotional_energy)
+
+func use_emotional_energy(amount):
+	"""使用情绪能量"""
+	if current_stage == SleepStage.REM and emotional_energy >= amount:
+		emotional_energy -= amount
+		emotional_energy_updated.emit(emotional_energy)
+		return true
+	return false
+
 func set_stage(stage):
 	"""手动设置睡眠阶段"""
 	if stage >= 0 and stage < 4:
 		_update_stage(stage)
+
+func get_fear_effect():
+	"""获取恐惧效果"""
+	if current_stage != SleepStage.DEEP_SLEEP:
+		return 0
+	
+	if fear_level < 30:
+		return 0  # 正常状态
+	elif fear_level < 60:
+		return 1  # 轻微恐慌
+	elif fear_level < 80:
+		return 2  # 中度恐慌
+	else:
+		return 3  # 重度恐慌

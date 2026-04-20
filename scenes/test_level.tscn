@@ -1,0 +1,37 @@
+[gd_scene load_steps=[
+	{
+		"path": "res://scripts/player.gd",
+		"type": "Script"
+	},
+	{
+		"path": "res://scripts/enemy.gd",
+		"type": "Script"
+	},
+	{
+		"path": "res://scripts/collectible.gd",
+		"type": "Script"
+	},
+	{
+		"path": "res://scripts/sleep_manager.gd",
+		"type": "Script"
+	},
+	{
+		"path": "res://ui/hud.tscn",
+		"type": "PackedScene"
+	}
+], nodes=[
+	{
+		"name": "TestLevel",
+		"type": "Node2D",
+		"children": [
+			{
+				"name": "Player",
+				"type": "CharacterBody2D",
+				"position": [
+					100,
+					100
+				],
+				"script": ExtResource( "res://scripts/player.gd" ),
+				"children": [
+					{
+						"name": "CollisionShape
