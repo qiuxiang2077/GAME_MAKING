@@ -2,6 +2,9 @@ extends Area2D
 
 var collected = false
 
+@onready var visual = $Visual
+@onready var glow = $Glow
+
 func _ready():
 	# 连接碰撞信号
 	body_entered.connect(_on_body_entered)
@@ -15,23 +18,29 @@ func collect():
 	print("记忆碎片收集！")
 	
 	# 视觉反馈 - 创建一个闪烁效果
-	var tween = create_tween()
+	if visual:
+		var tween = create_tween()
+		
+		# 快速闪烁和放大
+		for i in range(3):
+			tween.tween_property(visual, "scale", Vector2(1.5, 1.5), 0.1)
+			tween.tween_property(visual, "scale", Vector2(1.0, 1.0), 0.1)
+			tween.tween_property(visual, "color", Color(1, 1, 1, 1), 0.05)
+			tween.tween_property(visual, "color", Color(1, 0.9, 0.1, 1), 0.05)
+		
+		# 消失效果
+		tween.tween_property(visual, "scale", Vector2(0.1, 0.1), 0.3)
+		tween.tween_property(visual, "color:a", 0.0, 0.3)
 	
-	# 快速闪烁和放大
-	for i in range(3):
-		tween.tween_property($Visual, "scale", Vector2(1.5, 1.5), 0.1)
-		tween.tween_property($Visual, "scale", Vector2(1.0, 1.0), 0.1)
-		tween.tween_property($Visual, "color", Color(1, 1, 1, 1), 0.05)
-		tween.tween_property($Visual, "color", Color(1, 0.9, 0.1, 1), 0.05)
-	
-	# 消失效果
-	tween.tween_property($Visual, "scale", Vector2(0.1, 0.1), 0.3)
-	tween.tween_property($Glow, "scale", Vector2(0.1, 0.1), 0.3)
-	tween.tween_property($Visual, "color:a", 0.0, 0.3)
-	tween.tween_property($Glow, "color:a", 0.0, 0.3)
+	if glow:
+		var tween2 = create_tween()
+		tween2.tween_property(glow, "scale", Vector2(0.1, 0.1), 0.3)
+		tween2.tween_property(glow, "color:a", 0.0, 0.3)
 	
 	# 禁用碰撞
 	set_deferred("monitoring", false)
 	
 	# 增加分数或触发事件
-	GameManager.add_memory_fragment()
+	var game_manager = get_node_or_null("/root/GameManager")
+	if game_manager:
+		game_manager.add_memory_fragment()

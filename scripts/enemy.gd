@@ -21,6 +21,9 @@ var enemy_type = EnemyType.PATROL
 var chase_timer = 0
 var chase_duration = 5.0
 
+@onready var detection_area = $DetectionArea
+@onready var visual = $Visual
+
 func _ready():
 	start_position = position
 	# 随机选择初始方向
@@ -28,8 +31,9 @@ func _ready():
 	move_direction = directions[randi() % directions.size()]
 	
 	# 连接检测区域信号
-	$DetectionArea.body_entered.connect(_on_detection_area_entered)
-	$DetectionArea.body_exited.connect(_on_detection_area_exited)
+	if detection_area:
+		detection_area.body_entered.connect(_on_detection_area_entered)
+		detection_area.body_exited.connect(_on_detection_area_exited)
 
 func _physics_process(delta):
 	if is_patrolling:
@@ -72,9 +76,10 @@ func reset_to_patrol():
 	chase_timer = 0
 	
 	# 视觉反馈 - 敌人恢复正常状态
-	var tween = create_tween()
-	tween.tween_property($Visual, "color", Color(0.8, 0.2, 0.2, 1), 0.2)
-	tween.tween_property($Visual, "scale", Vector2(1.0, 1.0), 0.2)
+	if visual:
+		var tween = create_tween()
+		tween.tween_property(visual, "color", Color(0.8, 0.2, 0.2, 1), 0.2)
+		tween.tween_property(visual, "scale", Vector2(1.0, 1.0), 0.2)
 
 func _on_detection_area_entered(body):
 	if body.name == "Player" and not has_detected_player:
@@ -90,9 +95,10 @@ func detect_player():
 	print("敌人发现玩家！")
 	
 	# 视觉反馈 - 敌人变亮并停止巡逻
-	var tween = create_tween()
-	tween.tween_property($Visual, "color", Color(1, 0.5, 0.5, 1), 0.2)
-	tween.tween_property($Visual, "scale", Vector2(1.3, 1.3), 0.2)
+	if visual:
+		var tween = create_tween()
+		tween.tween_property(visual, "color", Color(1, 0.5, 0.5, 1), 0.2)
+		tween.tween_property(visual, "scale", Vector2(1.3, 1.3), 0.2)
 
 func set_enemy_type(type):
 	enemy_type = type

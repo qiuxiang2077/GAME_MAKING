@@ -59,13 +59,19 @@ func interact():
 	# 实现互动逻辑
 	print("Interact button pressed")
 	
-	# 检测周围可互动物体
+	# 检测周围可互动物体 - 使用Area2D方式更安全
 	var interact_range = 50
 	var query = PhysicsPointQueryParameters2D.new()
 	query.position = global_position
 	query.collision_mask = 1 << 2  # 碰撞层 2
-	query.max_distance = interact_range
-	var result = get_world_2d().direct_space_state.intersect_point(query)
+	query.max_results = 10
+	
+	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
+	if not space_state:
+		print("无法获取物理空间状态")
+		return
+		
+	var result = space_state.intersect_point(query)
 	
 	if result.size() > 0:
 		var body = result[0].collider
