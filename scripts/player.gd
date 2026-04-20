@@ -58,4 +58,22 @@ func _physics_process(delta):
 func interact():
 	# 实现互动逻辑
 	print("Interact button pressed")
-	# 这里可以添加与物体互动的代码
+	
+	# 检测周围可互动物体
+	var interact_range = 50
+	var collider = get_world_2d().direct_space_state.intersect_point(
+		global_position,
+		interact_range,
+		[1 << 1],  # 碰撞层 1
+		[1 << 2],  # 碰撞层 2
+		false
+	)
+	
+	if collider.size() > 0:
+		var body = collider[0].collider
+		if body.has_method("interact"):
+			body.interact()
+			print("Interacted with: " + body.name)
+		elif body.is_in_group("collectible"):
+			body.collect()
+			print("Collected: " + body.name)

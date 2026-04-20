@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d2e4qcxo13pwt"]
+[gd_scene load_steps=5 format=3 uid="uid://d2e4qcxo13pwt"]
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_5k238"]
 
@@ -25,6 +25,18 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(0.4, 0.45, 0.5, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_highlight"]
+bg_color = Color(0.9, 0.8, 0.2, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.9, 0.3, 1)
 
 [node name="HUD" type="CanvasLayer"]
 layer = 100
@@ -95,41 +107,23 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
 
-[node name="ArrowIcon" type="Control" parent="Control/RestartButton"]
-anchors_preset = 0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 25.0
-offset_top = 5.0
-offset_right = -25.0
-offset_bottom = -5.0
-
-[node name="Top" type="ColorRect" parent="Control/RestartButton/ArrowIcon"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 8.0
-offset_right = 35.0
-offset_bottom = 12.0
-color = Color(0.8, 0.85, 0.9, 1)
-pivot_offset = Vector2(25, 10)
-
-[node name="Left" type="ColorRect" parent="Control/RestartButton/ArrowIcon"]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 12.0
-offset_right = 15.0
-offset_bottom = 22.0
-color = Color(0.8, 0.85, 0.9, 1)
-
-[node name="Right" type="ColorRect" parent="Control/RestartButton/ArrowIcon"]
-layout_mode = 0
-offset_left = 35.0
-offset_top = 12.0
-offset_right = 40.0
-offset_bottom = 22.0
-color = Color(0.8, 0.85, 0.9, 1)
-
-[node name="RotateTween" type="Node" parent="Control/RestartButton"]
+[node name="Icon" type="Label" parent="Control/RestartButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 24
+text = "↻"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RestartLabel" type="Label" parent="Control"]
 layout_mode = 0
@@ -185,3 +179,109 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_font_sizes/font_size = 20
 text = "重新开始"
+
+[node name="VictoryPanel" type="Panel" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -150.0
+offset_right = 250.0
+offset_bottom = 150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="TitleLabel" type="Label" parent="Control/VictoryPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 20.0
+offset_right = 100.0
+offset_bottom = 50.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "胜利！"
+horizontal_alignment = 1
+
+[node name="SubtitleLabel" type="Label" parent="Control/VictoryPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -150.0
+offset_top = 55.0
+offset_right = 150.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 16
+text = "你收集了所有记忆碎片"
+horizontal_alignment = 1
+
+[node name="StarContainer" type="HBoxContainer" parent="Control/VictoryPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -75.0
+offset_top = -15.0
+offset_right = 75.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Star1" type="Label" parent="Control/VictoryPanel/StarContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "★"
+
+[node name="Star2" type="Label" parent="Control/VictoryPanel/StarContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "★"
+
+[node name="Star3" type="Label" parent="Control/VictoryPanel/StarContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "★"
+
+[node name="ButtonContainer" type="HBoxContainer" parent="Control/VictoryPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -200.0
+offset_top = -70.0
+offset_right = 200.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RestartButton3" type="Button" parent="Control/VictoryPanel/ButtonContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_font_sizes/font_size = 18
+text = "重新开始"
+
+[node name="ContinueButton" type="Button" parent="Control/VictoryPanel/ButtonContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_button_highlight")
+theme_override_font_sizes/font_size = 18
+text = "继续"
