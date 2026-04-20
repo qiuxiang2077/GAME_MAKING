@@ -61,16 +61,14 @@ func interact():
 	
 	# 检测周围可互动物体
 	var interact_range = 50
-	var collider = get_world_2d().direct_space_state.intersect_point(
-		global_position,
-		interact_range,
-		[1 << 1],  # 碰撞层 1
-		[1 << 2],  # 碰撞层 2
-		false
-	)
+	var query = PhysicsPointQueryParameters2D.new()
+	query.position = global_position
+	query.collision_mask = 1 << 2  # 碰撞层 2
+	query.max_distance = interact_range
+	var result = get_world_2d().direct_space_state.intersect_point(query)
 	
-	if collider.size() > 0:
-		var body = collider[0].collider
+	if result.size() > 0:
+		var body = result[0].collider
 		if body.has_method("interact"):
 			body.interact()
 			print("Interacted with: " + body.name)

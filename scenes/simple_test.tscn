@@ -4,10 +4,6 @@
 		"type": "Script"
 	},
 	{
-		"path": "res://scripts/enemy.gd",
-		"type": "Script"
-	},
-	{
 		"path": "res://scripts/collectible.gd",
 		"type": "Script"
 	},
@@ -21,7 +17,7 @@
 	}
 ], nodes=[
 	{
-		"name": "TestLevel",
+		"name": "SimpleTest",
 		"type": "Node2D",
 		"children": [
 			{
@@ -32,6 +28,8 @@
 					100
 				],
 				"script": ExtResource( "res://scripts/player.gd" ),
+				"collision_layer": 1,
+				"collision_mask": 2,
 				"children": [
 					{
 						"name": "CollisionShape2D",
@@ -57,64 +55,15 @@
 							30
 						],
 						"color": Color( 0, 0, 0, 1 )
-					}
-				]
-			},
-			{
-				"name": "Enemy",
-				"type": "CharacterBody2D",
-				"position": [
-					300,
-					200
-				],
-				"script": ExtResource( "res://scripts/enemy.gd" ),
-				"children": [
+					},
 					{
-						"name": "CollisionShape2D",
-						"type": "CollisionShape2D",
+						"name": "Camera2D",
+						"type": "Camera2D",
 						"position": [
 							0,
 							0
 						],
-						"shape": {
-							"type": "CircleShape2D",
-							"radius": 20
-						}
-					},
-					{
-						"name": "Visual",
-						"type": "ColorRect",
-						"position": [
-							-20,
-							-20
-						],
-						"size": [
-							40,
-							40
-						],
-						"color": Color( 0.8, 0.2, 0.2, 1 )
-					},
-					{
-						"name": "DetectionArea",
-						"type": "Area2D",
-						"position": [
-							0,
-							0
-						],
-						"children": [
-							{
-								"name": "CollisionShape2D",
-								"type": "CollisionShape2D",
-								"position": [
-									0,
-									0
-								],
-								"shape": {
-									"type": "CircleShape2D",
-									"radius": 100
-								}
-							}
-						]
+						"current": true
 					}
 				]
 			},
@@ -122,10 +71,12 @@
 				"name": "Collectible",
 				"type": "Area2D",
 				"position": [
-					200,
-					300
+					300,
+					200
 				],
 				"script": ExtResource( "res://scripts/collectible.gd" ),
+				"collision_layer": 8,
+				"collision_mask": 1,
 				"children": [
 					{
 						"name": "CollisionShape2D",
@@ -176,6 +127,19 @@
 				"name": "HUD",
 				"type": "Control",
 				"instance": ExtResource( "res://ui/hud.tscn" )
+			},
+			{
+				"name": "Floor",
+				"type": "ColorRect",
+				"position": [
+					-100,
+					-100
+				],
+				"size": [
+					600,
+					400
+				],
+				"color": Color( 0.08, 0.08, 0.1, 1 )
 			}
 		]
 	}

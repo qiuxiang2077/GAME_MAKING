@@ -104,7 +104,7 @@ func set_enemy_type(type):
 			velocity = Vector2.ZERO
 		EnemyType.SENSITIVE:
 			# 感应型敌人：对声音敏感
-			SPEED = 90
+			self.SPEED = 90
 		EnemyType.TRACKING:
 			# 追踪型敌人：更快的追击速度
-			RUN_SPEED = 150
+			self.RUN_SPEED = 150
