@@ -19,25 +19,25 @@ size = Vector2(40, 1800)
 size = Vector2(2400, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_v1"]
-size = Vector2(40, 300)
+size = Vector2(40, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_v2"]
-size = Vector2(40, 400)
+size = Vector2(40, 600)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_v3"]
-size = Vector2(40, 300)
+size = Vector2(40, 450)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_h1"]
-size = Vector2(300, 40)
+size = Vector2(450, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_h2"]
-size = Vector2(400, 40)
+size = Vector2(600, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_h3"]
-size = Vector2(300, 40)
+size = Vector2(450, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_h4"]
-size = Vector2(500, 40)
+size = Vector2(750, 40)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_collectible"]
 radius = 15.0
@@ -88,37 +88,37 @@ offset_bottom = 900.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall3" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(800, 20)
+position = Vector2(1200, 20)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall3"]
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="Visual" type="ColorRect" parent="Environment/MazeWalls/OuterWall3"]
-offset_left = -800.0
+offset_left = -1200.0
 offset_top = -20.0
-offset_right = 800.0
+offset_right = 1200.0
 offset_bottom = 20.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall4" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(800, 1180)
+position = Vector2(1200, 1780)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall4"]
 shape = SubResource("RectangleShape2D_wall_h")
 
 [node name="Visual" type="ColorRect" parent="Environment/MazeWalls/OuterWall4"]
-offset_left = -800.0
+offset_left = -1200.0
 offset_top = -20.0
-offset_right = 800.0
+offset_right = 1200.0
 offset_bottom = 20.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="InnerWalls" type="Node2D" parent="Environment/MazeWalls"]
 
 [node name="Wall1" type="StaticBody2D" parent="Environment/MazeWalls/InnerWalls"]
-position = Vector2(300, 200)
+position = Vector2(450, 300)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/InnerWalls/Wall1"]
