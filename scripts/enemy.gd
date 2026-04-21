@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 var SPEED = 80
 var RUN_SPEED = 120
-const PATROL_RANGE = 150
-const CHASE_RANGE = 300
+const PATROL_RANGE = 100
+const CHASE_RANGE = 500
 const CATCH_RANGE = 20
 
 enum EnemyType {
@@ -19,7 +19,7 @@ var is_patrolling = true
 var has_detected_player = false
 var enemy_type = EnemyType.PATROL
 var chase_timer = 0
-var chase_duration = 5.0
+var chase_duration = 8.0
 var last_known_player_pos = Vector2.ZERO
 
 @onready var detection_area = $DetectionArea if has_node("DetectionArea") else null
@@ -28,6 +28,26 @@ var last_known_player_pos = Vector2.ZERO
 func _ready():
 	start_position = position
 	add_to_group("enemy")
+	
+	# 随机分配敌人类型
+	enemy_type = randi() % 4
+	
+	# 根据类型调整参数
+	match enemy_type:
+		EnemyType.PATROL:
+			SPEED = 80
+			RUN_SPEED = 120
+		EnemyType.TRACKING:
+			SPEED = 60
+			RUN_SPEED = 160  # 追踪型更快
+		EnemyType.HIDDEN:
+			SPEED = 0
+			RUN_SPEED = 100
+			is_patrolling = false
+			velocity = Vector2.ZERO
+		EnemyType.SENSITIVE:
+			SPEED = 90
+			RUN_SPEED = 130
 	
 	var directions = [Vector2.RIGHT, Vector2.LEFT, Vector2.UP, Vector2.DOWN]
 	move_direction = directions[randi() % directions.size()]

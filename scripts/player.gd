@@ -9,11 +9,21 @@ var is_running = false
 var is_pushing_box = false
 var pushed_box: Node2D = null
 
+var max_health = 100
+var health = 100
+var max_sanity = 100
+var sanity = 100
+
+signal health_updated(health, max_health)
+signal sanity_updated(sanity, max_sanity)
+
 @onready var visual = $Visual if has_node("Visual") else null
 
 func _ready():
 	# 添加到玩家组，方便敌人查找
 	add_to_group("player")
+	health_updated.emit(health, max_health)
+	sanity_updated.emit(sanity, max_sanity)
 
 func _physics_process(_delta):
 	# 如果正在推箱子，优先处理推箱子逻辑
@@ -188,6 +198,38 @@ func _start_push_box(box: Node2D):
 func caught_by_enemy():
 	# 被敌人抓住，触发游戏结束
 	print("被敌人抓住！游戏结束")
+	var game_manager = get_node_or_null("/root/GameManager")
+	if game_manager:
+		game_manager.call_game_over()
+
+func take_damage(amount):
+	health = max(0, health - amount)
+	health_updated.emit(health, max_health)
+	if health <= 0:
+		die()
+
+func heal(amount):
+	health = min(max_health, health + amount)
+	health_updated.emit(health, max_health)
+
+func reduce_sanity(amount):
+	sanity = max(0, sanity - amount)
+	sanity_updated.emit(sanity, max_sanity)
+	_check_sanity_effects()
+
+func restore_sanity(amount):
+	sanity = min(max_sanity, sanity + amount)
+	sanity_updated.emit(sanity, max_sanity)
+	_check_sanity_effects()
+
+func _check_sanity_effects():
+	# SAN值低时施加负面效果
+	if sanity < 30:
+		# 视野缩小、移动速度减慢等
+		pass
+
+func die():
+	# 触发游戏结束
 	var game_manager = get_node_or_null("/root/GameManager")
 	if game_manager:
 		game_manager.call_game_over()

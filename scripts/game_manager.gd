@@ -7,6 +7,8 @@ var is_game_over = false
 var current_cycle = 1
 var max_cycles = 5
 var dream_score = 0
+var current_level = 1
+var level_scenes = ["res://scenes/maze_level.tscn", "res://scenes/maze_level2.tscn"]
 
 # 信号
 signal memory_collected(count)
@@ -91,3 +93,18 @@ func get_dream_quality():
 		quality = "较差"
 	
 	return quality
+
+
+func load_next_level():
+	current_level += 1
+	if current_level > level_scenes.size():
+		current_level = 1
+	
+	var next_scene_path = level_scenes[current_level - 1]
+	
+	reset_game()
+	
+	var error = get_tree().change_scene_to_file(next_scene_path)
+	if error != OK:
+		print("加载关卡失败: ", error)
+		get_tree().change_scene_to_file(level_scenes[0])

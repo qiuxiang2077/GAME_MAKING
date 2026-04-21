@@ -25,6 +25,13 @@ var stage_fragments_required = 2
 
 var timer = null
 
+var stage_scenes = {
+	SleepStage.AWAKE: "res://scenes/maze_level.tscn",
+	SleepStage.LIGHT_SLEEP: "res://scenes/playground_scene.tscn",
+	SleepStage.DEEP_SLEEP: "res://scenes/clinic_scene.tscn",
+	SleepStage.REM: "res://scenes/maze_level2.tscn"
+}
+
 # 子系统引用
 var light_sleep_effects = null
 var vision_system = null
@@ -76,7 +83,7 @@ func _setup_subsystems():
 
 func _on_timer_timeout():
 	if current_stage == SleepStage.DEEP_SLEEP:
-		fear_level += 0.8
+		fear_level += 1.2
 		if fear_level > max_fear_level:
 			fear_level = max_fear_level
 		fear_updated.emit(fear_level)
@@ -217,6 +224,7 @@ func _update_stage(new_stage):
 	stage_changed.emit(current_stage)
 	_update_stage_objective()
 	print("睡眠阶段切换到: " + get_stage_name())
+	load_current_stage_scene()
 
 func get_stage_name():
 	match current_stage:
@@ -295,3 +303,12 @@ func get_fear_effect():
 
 func get_cycle_info():
 	return "周期 %d/%d" % [current_cycle, max_cycles]
+
+func load_current_stage_scene():
+	var scene_path = stage_scenes.get(current_stage)
+	if scene_path:
+		var error = get_tree().change_scene_to_file(scene_path)
+		if error != OK:
+			print("加载阶段场景失败: ", scene_path)
+	else:
+		print("未找到当前阶段的场景映射")

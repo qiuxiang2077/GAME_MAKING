@@ -208,4 +208,9 @@ func _on_restart_pressed():
 	get_tree().reload_current_scene()
 
 func _on_continue_pressed():
-	print("继续游戏 - 进入下一关")
+	var game_manager = get_node_or_null("/root/GameManager")
+	if game_manager:
+		game_manager.load_next_level()
+	else:
+		print("错误：未找到GameManager")
+		get_tree().reload_current_scene()
