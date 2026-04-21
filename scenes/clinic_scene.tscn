@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cek1dxucsg1jc"]
+[gd_scene format=3 uid="uid://b8uf3g1letgbu"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_6f238"]
 [ext_resource type="Script" path="res://scripts/sleep_manager.gd" id="2_b7d9r"]
