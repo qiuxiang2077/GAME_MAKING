@@ -51,16 +51,16 @@ script = ExtResource("2_b7d9r")
 
 [node name="Floor" type="ColorRect" parent="Environment"]
 z_index = -1
-offset_left = -100.0
-offset_top = -100.0
-offset_right = 1700.0
-offset_bottom = 1300.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 1600.0
+offset_bottom = 1200.0
 color = Color(0.08, 0.08, 0.1, 1)
 
 [node name="MazeWalls" type="Node2D" parent="Environment"]
 
 [node name="OuterWall1" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(0, 600)
+position = Vector2(20, 600)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall1"]
@@ -74,7 +74,7 @@ offset_bottom = 600.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall2" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(1600, 600)
+position = Vector2(1580, 600)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall2"]
@@ -88,7 +88,7 @@ offset_bottom = 600.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall3" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(800, 0)
+position = Vector2(800, 20)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall3"]
@@ -102,7 +102,7 @@ offset_bottom = 20.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall4" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(800, 1200)
+position = Vector2(800, 1180)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall4"]
@@ -491,7 +491,7 @@ offset_bottom = 25.0
 color = Color(1, 0.9, 0.1, 0.2)
 
 [node name="Memory6" type="Area2D" parent="Collectibles"]
-position = Vector2(950, 900)
+position = Vector2(400, 500)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
@@ -514,7 +514,7 @@ offset_bottom = 25.0
 color = Color(1, 0.9, 0.1, 0.2)
 
 [node name="Memory7" type="Area2D" parent="Collectibles"]
-position = Vector2(1500, 1100)
+position = Vector2(800, 300)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")

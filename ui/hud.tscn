@@ -105,38 +105,38 @@ script = ExtResource("1_5k238")
 
 [node name="StatusPanel" type="Panel" parent="Control"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 260.0
-offset_bottom = 230.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 390.0
+offset_bottom = 345.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="StageLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 10.0
-offset_right = 232.0
-offset_bottom = 32.0
-theme_override_font_sizes/font_size = 16
+offset_left = 18.0
+offset_top = 15.0
+offset_right = 348.0
+offset_bottom = 48.0
+theme_override_font_sizes/font_size = 24
 theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
 text = "清醒期"
 
 [node name="CycleLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 34.0
-offset_right = 232.0
-offset_bottom = 54.0
-theme_override_font_sizes/font_size = 13
+offset_left = 18.0
+offset_top = 51.0
+offset_right = 348.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.5, 0.55, 0.65, 1)
 text = "周期 1/5"
 
 [node name="ObjectivePanel" type="Panel" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 58.0
-offset_right = 232.0
-offset_bottom = 100.0
+offset_left = 18.0
+offset_top = 87.0
+offset_right = 348.0
+offset_bottom = 150.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_objective_bg")
 
 [node name="ObjectiveLabel" type="Label" parent="Control/StatusPanel/ObjectivePanel"]
@@ -150,7 +150,7 @@ offset_right = -6.0
 offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 18
 theme_override_colors/font_color = Color(0.7, 0.9, 0.7, 1)
 text = "目标: 收集记忆碎片 (0/2)"
 vertical_alignment = 1
@@ -158,10 +158,10 @@ autowrap_mode = 3
 
 [node name="FearBarBg" type="ProgressBar" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 106.0
-offset_right = 232.0
-offset_bottom = 122.0
+offset_left = 18.0
+offset_top = 159.0
+offset_right = 348.0
+offset_bottom = 183.0
 theme_override_styles/background = SubResource("StyleBoxFlat_fear_bg")
 theme_override_styles/fill = SubResource("StyleBoxFlat_fear_fill")
 max_value = 100.0
@@ -170,35 +170,35 @@ show_percentage = false
 
 [node name="FearLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 124.0
-offset_right = 232.0
-offset_bottom = 142.0
-theme_override_font_sizes/font_size = 13
+offset_left = 18.0
+offset_top = 186.0
+offset_right = 348.0
+offset_bottom = 213.0
+theme_override_font_sizes/font_size = 20
 theme_override_colors/font_color = Color(0.8, 0.4, 0.4, 1)
 text = "恐惧: 0"
 
 [node name="MemoryLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 12.0
-offset_top = 146.0
-offset_right = 232.0
-offset_bottom = 164.0
-theme_override_font_sizes/font_size = 14
+offset_left = 18.0
+offset_top = 219.0
+offset_right = 348.0
+offset_bottom = 246.0
+theme_override_font_sizes/font_size = 21
 theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 text = "记忆碎片: 0/7"
 pivot_offset = Vector2(110, 9)
 
 [node name="RestartButton" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 16.0
-offset_top = 246.0
-offset_right = 106.0
-offset_bottom = 280.0
+offset_left = 24.0
+offset_top = 369.0
+offset_right = 159.0
+offset_bottom = 420.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 21
 text = "↻ 重来"
 
 [node name="StageAdvancePanel" type="Panel" parent="Control"]
@@ -209,10 +209,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -70.0
-offset_right = 160.0
-offset_bottom = 70.0
+offset_left = -240.0
+offset_top = -105.0
+offset_right = 240.0
+offset_bottom = 105.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_advance_bg")
@@ -222,12 +222,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -120.0
-offset_top = 15.0
-offset_right = 120.0
-offset_bottom = 45.0
+offset_left = -180.0
+offset_top = 22.0
+offset_right = 180.0
+offset_bottom = 68.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 22
+theme_override_font_sizes/font_size = 33
 theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 text = "目标达成"
 horizontal_alignment = 1
@@ -237,12 +237,12 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -130.0
-offset_top = 48.0
-offset_right = 130.0
-offset_bottom = 68.0
+offset_left = -195.0
+offset_top = 72.0
+offset_right = 195.0
+offset_bottom = 102.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 14
+theme_override_font_sizes/font_size = 21
 theme_override_colors/font_color = Color(0.8, 0.8, 0.75, 1)
 text = "按 [空格] 进入下一阶段"
 horizontal_alignment = 1
