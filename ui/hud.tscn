@@ -1,21 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://d2e4qcxo13pwt"]
+[gd_scene load_steps=9 format=3 uid="uid://d2e4qcxo13pwt"]
 
 [ext_resource type="Script" path="res://ui/hud.gd" id="1_5k238"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.1, 0.1, 0.12, 0.85)
-corner_radius_top_left = 12
-corner_radius_top_right = 12
-corner_radius_bottom_right = 12
-corner_radius_bottom_left = 12
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.3, 0.35, 0.4, 0.6)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
-bg_color = Color(0.2, 0.25, 0.3, 0.9)
+bg_color = Color(0.05, 0.05, 0.08, 0.9)
 corner_radius_top_left = 8
 corner_radius_top_right = 8
 corner_radius_bottom_right = 8
@@ -24,19 +12,83 @@ border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
-border_color = Color(0.4, 0.45, 0.5, 0.8)
+border_color = Color(0.2, 0.25, 0.35, 0.5)
+shadow_color = Color(0, 0, 0, 0.3)
+shadow_size = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button"]
+bg_color = Color(0.15, 0.18, 0.22, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.35, 0.45, 0.6)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_highlight"]
-bg_color = Color(0.9, 0.8, 0.2, 0.9)
-corner_radius_top_left = 8
-corner_radius_top_right = 8
-corner_radius_bottom_right = 8
-corner_radius_bottom_left = 8
+bg_color = Color(0.85, 0.75, 0.15, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 0.9, 0.3, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fear_bg"]
+bg_color = Color(0.15, 0.1, 0.1, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fear_fill"]
+bg_color = Color(0.8, 0.2, 0.2, 0.9)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_objective_bg"]
+bg_color = Color(0.08, 0.12, 0.08, 0.85)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.5, 0.3, 0.6)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_advance_bg"]
+bg_color = Color(0.12, 0.1, 0.08, 0.9)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.85, 0.2, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_advance_btn"]
+bg_color = Color(0.2, 0.18, 0.1, 0.9)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.9, 0.3, 0.7)
 
 [node name="HUD" type="CanvasLayer"]
 layer = 100
@@ -53,86 +105,164 @@ script = ExtResource("1_5k238")
 
 [node name="StatusPanel" type="Panel" parent="Control"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 280.0
-offset_bottom = 200.0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 260.0
+offset_bottom = 230.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
 [node name="StageLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 15.0
-offset_right = 245.0
-offset_bottom = 40.0
-theme_override_font_sizes/font_size = 18
-text = "睡眠阶段: 清醒期"
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 232.0
+offset_bottom = 32.0
+theme_override_font_sizes/font_size = 16
+theme_override_colors/font_color = Color(0.7, 0.8, 1, 1)
+text = "清醒期"
+
+[node name="CycleLabel" type="Label" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 34.0
+offset_right = 232.0
+offset_bottom = 54.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.5, 0.55, 0.65, 1)
+text = "周期 1/5"
+
+[node name="ObjectivePanel" type="Panel" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 58.0
+offset_right = 232.0
+offset_bottom = 100.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_objective_bg")
+
+[node name="ObjectiveLabel" type="Label" parent="Control/StatusPanel/ObjectivePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 4.0
+offset_right = -6.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.7, 0.9, 0.7, 1)
+text = "目标: 收集记忆碎片 (0/2)"
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="FearBarBg" type="ProgressBar" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 106.0
+offset_right = 232.0
+offset_bottom = 122.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fear_bg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fear_fill")
+max_value = 100.0
+value = 0.0
+show_percentage = false
 
 [node name="FearLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 50.0
-offset_right = 245.0
-offset_bottom = 75.0
-theme_override_font_sizes/font_size = 16
-text = "恐惧值: 0/100"
-
-[node name="TimeLabel" type="Label" parent="Control/StatusPanel"]
-layout_mode = 0
-offset_left = 15.0
-offset_top = 85.0
-offset_right = 245.0
-offset_bottom = 110.0
-theme_override_font_sizes/font_size = 16
-text = "剩余时间: 5:00"
+offset_left = 12.0
+offset_top = 124.0
+offset_right = 232.0
+offset_bottom = 142.0
+theme_override_font_sizes/font_size = 13
+theme_override_colors/font_color = Color(0.8, 0.4, 0.4, 1)
+text = "恐惧: 0"
 
 [node name="MemoryLabel" type="Label" parent="Control/StatusPanel"]
 layout_mode = 0
-offset_left = 15.0
-offset_top = 120.0
-offset_right = 245.0
-offset_bottom = 145.0
-theme_override_font_sizes/font_size = 16
+offset_left = 12.0
+offset_top = 146.0
+offset_right = 232.0
+offset_bottom = 164.0
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 text = "记忆碎片: 0/7"
-pivot_offset = Vector2(115, 12)
+pivot_offset = Vector2(110, 9)
 
 [node name="RestartButton" type="Button" parent="Control"]
 layout_mode = 0
-offset_left = 20.0
-offset_top = 220.0
-offset_right = 120.0
-offset_bottom = 260.0
-tooltip_text = "重新开始"
+offset_left = 16.0
+offset_top = 246.0
+offset_right = 106.0
+offset_bottom = 280.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
 theme_override_styles/hover = SubResource("StyleBoxFlat_button")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_button")
+theme_override_font_sizes/font_size = 14
+text = "↻ 重来"
 
-[node name="Icon" type="Label" parent="Control/RestartButton"]
+[node name="StageAdvancePanel" type="Panel" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -15.0
-offset_right = 20.0
-offset_bottom = 15.0
+offset_left = -160.0
+offset_top = -70.0
+offset_right = 160.0
+offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 24
-text = "↻"
-horizontal_alignment = 1
-vertical_alignment = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_advance_bg")
 
-[node name="RestartLabel" type="Label" parent="Control"]
-layout_mode = 0
-offset_left = 125.0
-offset_top = 228.0
-offset_right = 250.0
-offset_bottom = 253.0
+[node name="TitleLabel" type="Label" parent="Control/StageAdvancePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 15.0
+offset_right = 120.0
+offset_bottom = 45.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 22
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+text = "目标达成"
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="Control/StageAdvancePanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -130.0
+offset_top = 48.0
+offset_right = 130.0
+offset_bottom = 68.0
+grow_horizontal = 2
 theme_override_font_sizes/font_size = 14
-text = "重新开始"
+theme_override_colors/font_color = Color(0.8, 0.8, 0.75, 1)
+text = "按 [空格] 进入下一阶段"
+horizontal_alignment = 1
+
+[node name="LaterButton" type="Button" parent="Control/StageAdvancePanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -50.0
+offset_right = 60.0
+offset_bottom = -18.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_advance_btn")
+theme_override_font_sizes/font_size = 14
+text = "稍后"
 
 [node name="GameOverPanel" type="Panel" parent="Control"]
 visible = false
@@ -142,10 +272,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -200.0
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+offset_left = -180.0
+offset_top = -90.0
+offset_right = 180.0
+offset_bottom = 90.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -156,12 +286,28 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -100.0
-offset_top = 30.0
+offset_top = 20.0
 offset_right = 100.0
-offset_bottom = 60.0
+offset_bottom = 55.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(0.9, 0.3, 0.3, 1)
 text = "游戏结束"
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="Control/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -140.0
+offset_top = 55.0
+offset_right = 140.0
+offset_bottom = 75.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.6, 0.65, 1)
+text = "你被噩梦吞噬了..."
 horizontal_alignment = 1
 
 [node name="RestartButton2" type="Button" parent="Control/GameOverPanel"]
@@ -171,13 +317,14 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -80.0
-offset_top = -60.0
-offset_right = 80.0
+offset_left = -70.0
+offset_top = -55.0
+offset_right = 70.0
 offset_bottom = -20.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxFlat_button")
+theme_override_font_sizes/font_size = 18
 text = "重新开始"
 
 [node name="VictoryPanel" type="Panel" parent="Control"]
@@ -188,10 +335,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -250.0
-offset_top = -150.0
-offset_right = 250.0
-offset_bottom = 150.0
+offset_left = -220.0
+offset_top = -130.0
+offset_right = 220.0
+offset_bottom = 130.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
@@ -202,12 +349,13 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -100.0
-offset_top = 20.0
+offset_top = 15.0
 offset_right = 100.0
 offset_bottom = 50.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 32
-text = "胜利！"
+theme_override_font_sizes/font_size = 30
+theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
+text = "记忆觉醒"
 horizontal_alignment = 1
 
 [node name="SubtitleLabel" type="Label" parent="Control/VictoryPanel"]
@@ -216,11 +364,12 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -150.0
-offset_top = 55.0
+offset_top = 52.0
 offset_right = 150.0
-offset_bottom = 80.0
+offset_bottom = 72.0
 grow_horizontal = 2
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 14
+theme_override_colors/font_color = Color(0.6, 0.65, 0.75, 1)
 text = "你收集了所有记忆碎片"
 horizontal_alignment = 1
 
@@ -231,31 +380,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -75.0
-offset_top = -15.0
-offset_right = 75.0
-offset_bottom = 15.0
+offset_left = -60.0
+offset_top = -12.0
+offset_right = 60.0
+offset_bottom = 12.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Star1" type="Label" parent="Control/VictoryPanel/StarContainer"]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
 text = "★"
 
 [node name="Star2" type="Label" parent="Control/VictoryPanel/StarContainer"]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
 text = "★"
 
 [node name="Star3" type="Label" parent="Control/VictoryPanel/StarContainer"]
 visible = false
 layout_mode = 2
-theme_override_font_sizes/font_size = 30
+theme_override_font_sizes/font_size = 28
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
 text = "★"
 
 [node name="ButtonContainer" type="HBoxContainer" parent="Control/VictoryPanel"]
@@ -265,23 +417,23 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -200.0
-offset_top = -70.0
-offset_right = 200.0
-offset_bottom = -20.0
+offset_left = -180.0
+offset_top = -60.0
+offset_right = 180.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_constants/separation = 20
+theme_override_constants/separation = 16
 alignment = 1
 
 [node name="RestartButton3" type="Button" parent="Control/VictoryPanel/ButtonContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_button")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "重新开始"
 
 [node name="ContinueButton" type="Button" parent="Control/VictoryPanel/ButtonContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_button_highlight")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 16
 text = "继续"

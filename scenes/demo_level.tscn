@@ -1,22 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2e3qcxo13pwt"]
+[gd_scene load_steps=9 format=3 uid="uid://c2e3qcxo13pwt"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_6f238"]
 [ext_resource type="Script" path="res://scripts/sleep_manager.gd" id="2_b7d9r"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="3_9x45t"]
 [ext_resource type="Script" path="res://scripts/collectible.gd" id="4_7y36u"]
 [ext_resource type="PackedScene" uid="uid://d2e4qcxo13pwt" path="res://ui/hud.tscn" id="5_8z76w"]
+[ext_resource type="Script" path="res://scripts/puzzles/toggle_switch.gd" id="6_sw01"]
+[ext_resource type="Script" path="res://scripts/puzzles/switch_door.gd" id="7_dr02"]
+[ext_resource type="Script" path="res://scripts/puzzles/pushable_box.gd" id="8_bx03"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_player"]
+[sub_resource type="RectangleShape2D" id="Rect_player"]
 size = Vector2(30, 30)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_enemy"]
+[sub_resource type="RectangleShape2D" id="Rect_enemy"]
 size = Vector2(30, 30)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_detect"]
+[sub_resource type="CircleShape2D" id="Circle_detect"]
 radius = 100.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_collectible"]
+[sub_resource type="CircleShape2D" id="Circle_collect"]
 radius = 15.0
+
+[sub_resource type="RectangleShape2D" id="Rect_wall"]
+size = Vector2(1200, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_wall_v"]
+size = Vector2(20, 800)
+
+[sub_resource type="RectangleShape2D" id="Rect_wall_inner"]
+size = Vector2(400, 20)
+
+[sub_resource type="RectangleShape2D" id="Rect_door"]
+size = Vector2(20, 60)
+
+[sub_resource type="RectangleShape2D" id="Rect_box"]
+size = Vector2(36, 36)
+
+[sub_resource type="CircleShape2D" id="Circle_switch"]
+radius = 25.0
 
 [node name="DemoLevel" type="Node2D"]
 
@@ -31,7 +52,99 @@ offset_left = -100.0
 offset_top = -100.0
 offset_right = 1700.0
 offset_bottom = 1300.0
-color = Color(0.08, 0.08, 0.1, 1)
+color = Color(0.06, 0.06, 0.08, 1)
+
+[node name="Walls" type="Node2D" parent="Environment"]
+
+[node name="TopWall" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(500, -10)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/TopWall"]
+shape = SubResource("Rect_wall")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/TopWall"]
+offset_left = -600.0
+offset_top = -10.0
+offset_right = 600.0
+offset_bottom = 10.0
+color = Color(0.2, 0.22, 0.28, 1)
+
+[node name="BottomWall" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(500, 1090)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/BottomWall"]
+shape = SubResource("Rect_wall")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/BottomWall"]
+offset_left = -600.0
+offset_top = -10.0
+offset_right = 600.0
+offset_bottom = 10.0
+color = Color(0.2, 0.22, 0.28, 1)
+
+[node name="LeftWall" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(-10, 490)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/LeftWall"]
+shape = SubResource("Rect_wall_v")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/LeftWall"]
+offset_left = -10.0
+offset_top = -400.0
+offset_right = 10.0
+offset_bottom = 400.0
+color = Color(0.2, 0.22, 0.28, 1)
+
+[node name="RightWall" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(1110, 490)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/RightWall"]
+shape = SubResource("Rect_wall_v")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/RightWall"]
+offset_left = -10.0
+offset_top = -400.0
+offset_right = 10.0
+offset_bottom = 400.0
+color = Color(0.2, 0.22, 0.28, 1)
+
+[node name="InnerWall1" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(400, 400)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/InnerWall1"]
+shape = SubResource("Rect_wall_inner")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/InnerWall1"]
+offset_left = -200.0
+offset_top = -10.0
+offset_right = 200.0
+offset_bottom = 10.0
+color = Color(0.18, 0.2, 0.25, 1)
+
+[node name="InnerWall2" type="StaticBody2D" parent="Environment/Walls"]
+position = Vector2(700, 700)
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Walls/InnerWall2"]
+shape = SubResource("Rect_wall_inner")
+
+[node name="Visual" type="ColorRect" parent="Environment/Walls/InnerWall2"]
+offset_left = -200.0
+offset_top = -10.0
+offset_right = 200.0
+offset_bottom = 10.0
+color = Color(0.18, 0.2, 0.25, 1)
 
 [node name="Player" type="CharacterBody2D" parent="."]
 z_index = 10
@@ -41,7 +154,7 @@ collision_layer = 1
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
-shape = SubResource("RectangleShape2D_player")
+shape = SubResource("Rect_player")
 
 [node name="Visual" type="ColorRect" parent="Player"]
 offset_left = -15.0
@@ -50,21 +163,32 @@ offset_right = 15.0
 offset_bottom = 15.0
 color = Color(0, 0, 0, 1)
 
+[node name="InteractionHint" type="Label" parent="Player"]
+visible = false
+offset_left = -30.0
+offset_top = -40.0
+offset_right = 30.0
+offset_bottom = -20.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(1, 1, 1, 0.8)
+text = "[空格] 交互"
+horizontal_alignment = 1
+
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(0.6, 0.6)
+zoom = Vector2(0.7, 0.7)
 position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+position_smoothing_speed = 8.0
 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="Enemy1" type="CharacterBody2D" parent="Enemies"]
-position = Vector2(800, 400)
+position = Vector2(800, 300)
 script = ExtResource("3_9x45t")
 collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy1"]
-shape = SubResource("RectangleShape2D_enemy")
+shape = SubResource("Rect_enemy")
 
 [node name="Visual" type="ColorRect" parent="Enemies/Enemy1"]
 offset_left = -15.0
@@ -78,16 +202,16 @@ collision_layer = 0
 collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy1/DetectionArea"]
-shape = SubResource("CircleShape2D_detect")
+shape = SubResource("Circle_detect")
 
 [node name="Enemy2" type="CharacterBody2D" parent="Enemies"]
-position = Vector2(1000, 800)
+position = Vector2(500, 900)
 script = ExtResource("3_9x45t")
 collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy2"]
-shape = SubResource("RectangleShape2D_enemy")
+shape = SubResource("Rect_enemy")
 
 [node name="Visual" type="ColorRect" parent="Enemies/Enemy2"]
 offset_left = -15.0
@@ -101,146 +225,213 @@ collision_layer = 0
 collision_mask = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy2/DetectionArea"]
-shape = SubResource("CircleShape2D_detect")
-
-[node name="Enemy3" type="CharacterBody2D" parent="Enemies"]
-position = Vector2(500, 1000)
-script = ExtResource("3_9x45t")
-collision_layer = 4
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy3"]
-shape = SubResource("RectangleShape2D_enemy")
-
-[node name="Visual" type="ColorRect" parent="Enemies/Enemy3"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
-color = Color(0.9, 0.1, 0.1, 1)
-
-[node name="DetectionArea" type="Area2D" parent="Enemies/Enemy3"]
-collision_layer = 0
-collision_mask = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enemies/Enemy3/DetectionArea"]
-shape = SubResource("CircleShape2D_detect")
+shape = SubResource("Circle_detect")
 
 [node name="Collectibles" type="Node2D" parent="."]
 
 [node name="Memory1" type="Area2D" parent="Collectibles"]
-position = Vector2(600, 300)
+position = Vector2(300, 600)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory1"]
-shape = SubResource("CircleShape2D_collectible")
+shape = SubResource("Circle_collect")
 
 [node name="Visual" type="ColorRect" parent="Collectibles/Memory1"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(1, 0.9, 0.1, 1)
 
 [node name="Glow" type="ColorRect" parent="Collectibles/Memory1"]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(1, 0.9, 0.1, 0.2)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.9, 0.1, 0.15)
 
 [node name="Memory2" type="Area2D" parent="Collectibles"]
-position = Vector2(1100, 600)
+position = Vector2(900, 200)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory2"]
-shape = SubResource("CircleShape2D_collectible")
+shape = SubResource("Circle_collect")
 
 [node name="Visual" type="ColorRect" parent="Collectibles/Memory2"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(1, 0.9, 0.1, 1)
 
 [node name="Glow" type="ColorRect" parent="Collectibles/Memory2"]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(1, 0.9, 0.1, 0.2)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.9, 0.1, 0.15)
 
 [node name="Memory3" type="Area2D" parent="Collectibles"]
-position = Vector2(700, 1000)
+position = Vector2(600, 900)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory3"]
-shape = SubResource("CircleShape2D_collectible")
+shape = SubResource("Circle_collect")
 
 [node name="Visual" type="ColorRect" parent="Collectibles/Memory3"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(1, 0.9, 0.1, 1)
 
 [node name="Glow" type="ColorRect" parent="Collectibles/Memory3"]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(1, 0.9, 0.1, 0.2)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.9, 0.1, 0.15)
 
 [node name="Memory4" type="Area2D" parent="Collectibles"]
-position = Vector2(1400, 400)
+position = Vector2(1000, 600)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory4"]
-shape = SubResource("CircleShape2D_collectible")
+shape = SubResource("Circle_collect")
 
 [node name="Visual" type="ColorRect" parent="Collectibles/Memory4"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(1, 0.9, 0.1, 1)
 
 [node name="Glow" type="ColorRect" parent="Collectibles/Memory4"]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(1, 0.9, 0.1, 0.2)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.9, 0.1, 0.15)
 
 [node name="Memory5" type="Area2D" parent="Collectibles"]
-position = Vector2(300, 900)
+position = Vector2(150, 1000)
 collision_layer = 8
 collision_mask = 1
 script = ExtResource("4_7y36u")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collectibles/Memory5"]
-shape = SubResource("CircleShape2D_collectible")
+shape = SubResource("Circle_collect")
 
 [node name="Visual" type="ColorRect" parent="Collectibles/Memory5"]
-offset_left = -15.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 15.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 color = Color(1, 0.9, 0.1, 1)
 
 [node name="Glow" type="ColorRect" parent="Collectibles/Memory5"]
-offset_left = -25.0
-offset_top = -25.0
-offset_right = 25.0
-offset_bottom = 25.0
-color = Color(1, 0.9, 0.1, 0.2)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(1, 0.9, 0.1, 0.15)
+
+[node name="Puzzles" type="Node2D" parent="."]
+
+[node name="Switch1" type="Area2D" parent="Puzzles"]
+position = Vector2(250, 500)
+script = ExtResource("6_sw01")
+switch_id = "switch1"
+target_door_ids = Array[String](["Door1"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Switch1"]
+shape = SubResource("Circle_switch")
+
+[node name="Visual" type="ColorRect" parent="Puzzles/Switch1"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="Door1" type="StaticBody2D" parent="Puzzles"]
+position = Vector2(600, 400)
+script = ExtResource("7_dr02")
+door_id = "Door1"
+door_type = 2
+open_direction = Vector2(0, -1)
+open_distance = 80.0
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Door1"]
+shape = SubResource("Rect_door")
+
+[node name="Visual" type="ColorRect" parent="Puzzles/Door1"]
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 10.0
+offset_bottom = 30.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Switch2" type="Area2D" parent="Puzzles"]
+position = Vector2(900, 500)
+script = ExtResource("6_sw01")
+switch_id = "switch2"
+target_door_ids = Array[String](["Door2"])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Switch2"]
+shape = SubResource("Circle_switch")
+
+[node name="Visual" type="ColorRect" parent="Puzzles/Switch2"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(0.8, 0.2, 0.2, 1)
+
+[node name="Door2" type="StaticBody2D" parent="Puzzles"]
+position = Vector2(700, 700)
+script = ExtResource("7_dr02")
+door_id = "Door2"
+door_type = 2
+open_direction = Vector2(0, -1)
+open_distance = 80.0
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Door2"]
+shape = SubResource("Rect_door")
+
+[node name="Visual" type="ColorRect" parent="Puzzles/Door2"]
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 10.0
+offset_bottom = 30.0
+color = Color(0.15, 0.15, 0.2, 1)
+
+[node name="Box1" type="CharacterBody2D" parent="Puzzles"]
+position = Vector2(400, 600)
+script = ExtResource("8_bx03")
+collision_layer = 2
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Puzzles/Box1"]
+shape = SubResource("Rect_box")
+
+[node name="Visual" type="ColorRect" parent="Puzzles/Box1"]
+offset_left = -18.0
+offset_top = -18.0
+offset_right = 18.0
+offset_bottom = 18.0
+color = Color(0.6, 0.4, 0.2, 1)
 
 [node name="HUD" parent="." instance=ExtResource("5_8z76w")]

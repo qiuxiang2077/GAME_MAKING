@@ -1,24 +1,15 @@
 extends Node
 
 enum SleepStage {
-	AWAKE,      # 清醒期
-	LIGHT_SLEEP, # 浅睡期
-	DEEP_SLEEP,  # 深睡期
-	REM         # REM期
+	AWAKE,
+	LIGHT_SLEEP,
+	DEEP_SLEEP,
+	REM
 }
 
 var current_stage = SleepStage.AWAKE
 var current_cycle = 1
 var max_cycles = 5
-
-var stage_durations = {
-	SleepStage.AWAKE: 300,
-	SleepStage.LIGHT_SLEEP: 600,
-	SleepStage.DEEP_SLEEP: 600,
-	SleepStage.REM: 900
-}
-
-var time_remaining = stage_durations[current_stage]
 
 var fear_level = 0
 var max_fear_level = 100
@@ -26,84 +17,197 @@ var max_fear_level = 100
 var emotional_energy = 0
 var max_emotional_energy = 100
 
+var stage_objective_completed = false
+var can_advance_stage = false
+
+var stage_fragments_collected = 0
+var stage_fragments_required = 2
+
+var timer = null
+
+# 子系统引用
+var light_sleep_effects = null
+var vision_system = null
+var emotion_system = null
+
 signal stage_changed(new_stage)
-signal time_updated(remaining)
+signal objective_updated(current, required)
+signal objective_completed()
+signal stage_advance_available()
+signal stage_advanced(new_stage)
 signal fear_updated(level)
 signal emotional_energy_updated(energy)
 signal fear_panic_triggered()
 signal cycle_completed(cycle_num)
 signal all_cycles_completed()
 
-var timer = null
-var is_cycle_active = true
-
 func _ready():
+	_setup_timers()
+	_setup_subsystems()
+	_update_stage_objective()
+
+func _setup_timers():
 	timer = Timer.new()
 	timer.wait_time = 1.0
 	timer.autostart = true
 	timer.timeout.connect(_on_timer_timeout)
 	add_child(timer)
+
+func _setup_subsystems():
+	# 浅睡期效果系统
+	light_sleep_effects = LightSleepEffects.new()
+	add_child(light_sleep_effects)
 	
-	_update_stage(current_stage)
+	# 视野系统
+	vision_system = VisionSystem.new()
+	add_child(vision_system)
+	
+	# 情感系统
+	emotion_system = EmotionSystem.new()
+	add_child(emotion_system)
 
 func _on_timer_timeout():
-	if not is_cycle_active:
-		return
-	
-	if time_remaining > 0:
-		time_remaining -= 1
-		time_updated.emit(time_remaining)
-		
-		if current_stage == SleepStage.DEEP_SLEEP:
-			fear_level += 0.5
-			if fear_level > max_fear_level:
-				fear_level = max_fear_level
-			fear_updated.emit(fear_level)
-			
-			if fear_level >= 80:
-				fear_panic_triggered.emit()
-		
-		elif current_stage == SleepStage.REM:
-			emotional_energy += 0.3
-			if emotional_energy > max_emotional_energy:
-				emotional_energy = max_emotional_energy
-			emotional_energy_updated.emit(emotional_energy)
-	else:
-		_next_stage()
+	if current_stage == SleepStage.DEEP_SLEEP:
+		fear_level += 0.8
+		if fear_level > max_fear_level:
+			fear_level = max_fear_level
+		fear_updated.emit(fear_level)
 
-func _next_stage():
+		if fear_level >= 80 and not stage_objective_completed:
+			fear_panic_triggered.emit()
+		
+		# 更新视野系统
+		var player = get_tree().get_first_node_in_group("player")
+		if player and vision_system:
+			vision_system.update_vision(player.global_position, fear_level, current_stage)
+
+	elif current_stage == SleepStage.REM:
+		emotional_energy += 0.5
+		if emotional_energy > max_emotional_energy:
+			emotional_energy = max_emotional_energy
+		emotional_energy_updated.emit(emotional_energy)
+		
+		# 显示敌人情感
+		if emotion_system:
+			emotion_system.reveal_emotions(current_stage)
+	
+	elif current_stage == SleepStage.LIGHT_SLEEP:
+		# 浅睡期状态波动已在子系统中处理
+		pass
+	
+	else:
+		# 其他阶段关闭特殊效果
+		if vision_system:
+			vision_system.set_full_vision()
+		if emotion_system:
+			emotion_system.reveal_emotions(current_stage)
+
+func _update_stage_objective():
+	stage_objective_completed = false
+	can_advance_stage = false
+	stage_fragments_collected = 0
+
+	match current_stage:
+		SleepStage.AWAKE:
+			stage_fragments_required = 0
+			stage_objective_completed = true
+			can_advance_stage = true
+			stage_advance_available.emit()
+			_stop_stage_effects()
+		SleepStage.LIGHT_SLEEP:
+			stage_fragments_required = 2
+			_start_light_sleep_effects()
+		SleepStage.DEEP_SLEEP:
+			stage_fragments_required = 1
+			fear_level = 0
+			_start_deep_sleep_effects()
+		SleepStage.REM:
+			stage_fragments_required = 1
+			emotional_energy = 0
+			_start_rem_effects()
+
+	objective_updated.emit(stage_fragments_collected, stage_fragments_required)
+
+func _start_light_sleep_effects():
+	if light_sleep_effects:
+		light_sleep_effects.start_fluctuation()
+	if vision_system:
+		vision_system.set_full_vision()
+
+func _start_deep_sleep_effects():
+	if light_sleep_effects:
+		light_sleep_effects.stop_fluctuation()
+	# 视野系统会在 _on_timer_timeout 中自动更新
+
+func _start_rem_effects():
+	if light_sleep_effects:
+		light_sleep_effects.stop_fluctuation()
+	if vision_system:
+		vision_system.set_full_vision()
+	if emotion_system:
+		emotion_system.reveal_emotions(current_stage)
+
+func _stop_stage_effects():
+	if light_sleep_effects:
+		light_sleep_effects.stop_fluctuation()
+	if vision_system:
+		vision_system.set_full_vision()
+	if emotion_system:
+		emotion_system.reveal_emotions(current_stage)
+
+func on_fragment_collected():
+	if current_stage == SleepStage.LIGHT_SLEEP or current_stage == SleepStage.REM:
+		stage_fragments_collected += 1
+		objective_updated.emit(stage_fragments_collected, stage_fragments_required)
+
+		if stage_fragments_collected >= stage_fragments_required and not stage_objective_completed:
+			_complete_objective()
+
+func on_door_found():
+	if current_stage == SleepStage.DEEP_SLEEP and not stage_objective_completed:
+		_complete_objective()
+
+func _complete_objective():
+	stage_objective_completed = true
+	can_advance_stage = true
+	objective_completed.emit()
+	stage_advance_available.emit()
+	print("阶段目标达成！按空格进入下一阶段")
+
+func try_advance_stage() -> bool:
+	if not can_advance_stage:
+		return false
+
 	if current_stage == SleepStage.REM:
-		# REM期结束 = 一个完整周期结束
 		current_cycle += 1
 		cycle_completed.emit(current_cycle - 1)
-		
+
 		if current_cycle > max_cycles:
-			# 所有周期完成
-			is_cycle_active = false
 			all_cycles_completed.emit()
 			print("所有睡眠周期完成！")
-			return
-		
-		# 开始新周期：回到清醒期
+			return true
+
 		_update_stage(SleepStage.AWAKE)
 		print("开始第 " + str(current_cycle) + " 个睡眠周期")
 	else:
-		# 进入下一阶段
 		_update_stage(current_stage + 1)
+
+	stage_advanced.emit(current_stage)
+	return true
 
 func _update_stage(new_stage):
 	current_stage = new_stage
-	time_remaining = stage_durations[current_stage]
-	
+
 	if current_stage != SleepStage.DEEP_SLEEP:
 		fear_level = 0
 		fear_updated.emit(fear_level)
-	
+
 	if current_stage != SleepStage.REM:
 		emotional_energy = 0
 		emotional_energy_updated.emit(emotional_energy)
-	
+
 	stage_changed.emit(current_stage)
+	_update_stage_objective()
 	print("睡眠阶段切换到: " + get_stage_name())
 
 func get_stage_name():
@@ -119,11 +223,23 @@ func get_stage_name():
 		_:
 			return "未知"
 
+func get_stage_objective_text():
+	match current_stage:
+		SleepStage.AWAKE:
+			return "找到梦境入口"
+		SleepStage.LIGHT_SLEEP:
+			return "收集记忆碎片 (%d/%d)" % [stage_fragments_collected, stage_fragments_required]
+		SleepStage.DEEP_SLEEP:
+			return "找到REM之门"
+		SleepStage.REM:
+			return "完成剧情挑战"
+		_:
+			return ""
+
 func get_fear_speed_multiplier():
-	# 设计文档: 61-80中度恐慌移动速度-15%, 81-100重度恐慌无法控制
 	if current_stage != SleepStage.DEEP_SLEEP:
 		return 1.0
-	
+
 	if fear_level < 30:
 		return 1.0
 	elif fear_level < 60:
@@ -134,7 +250,6 @@ func get_fear_speed_multiplier():
 		return 0.5
 
 func is_panic_state():
-	# 重度恐慌：无法控制角色
 	return current_stage == SleepStage.DEEP_SLEEP and fear_level >= 80
 
 func reduce_fear(amount):
@@ -160,7 +275,7 @@ func set_stage(stage):
 func get_fear_effect():
 	if current_stage != SleepStage.DEEP_SLEEP:
 		return 0
-	
+
 	if fear_level < 30:
 		return 0
 	elif fear_level < 60:
