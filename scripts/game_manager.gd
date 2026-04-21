@@ -44,6 +44,10 @@ func trigger_game_over():
 	game_over.emit()
 	print("游戏结束！")
 
+# 兼容旧的调用方式
+func call_game_over():
+	trigger_game_over()
+
 func complete_cycle():
 	current_cycle += 1
 	cycle_completed.emit(current_cycle)

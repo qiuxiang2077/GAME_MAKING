@@ -2,15 +2,15 @@ extends Area2D
 
 var collected = false
 
-@onready var visual = $Visual
-@onready var glow = $Glow
+@onready var visual = $Visual if has_node("Visual") else null
+@onready var glow = $Glow if has_node("Glow") else null
 
 func _ready():
 	# 连接碰撞信号
 	body_entered.connect(_on_body_entered)
 
 func _on_body_entered(body):
-	if body.name == "Player" and not collected:
+	if body and body.name == "Player" and not collected:
 		collect()
 
 func collect():

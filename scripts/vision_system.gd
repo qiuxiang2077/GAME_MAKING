@@ -22,12 +22,12 @@ func _setup_vision_overlay():
 	add_child(darkness_overlay)
 	
 	# 创建2D灯光作为视野光源
-	light_2d = Light2D.new()
+	light_2d = PointLight2D.new()
 	light_2d.texture = _create_light_texture()
 	light_2d.energy = 1.0
 	light_2d.scale = Vector2(1, 1)
 	light_2d.z_index = 51
-	light_2d.mode = Light2D.LIGHT_MODE_MASK
+	# light_2d.mode = Light2D.MODE_MASK  # 暂时注释，Godot 4 中枚举可能已更改
 	add_child(light_2d)
 
 func _create_light_texture() -> GradientTexture2D:

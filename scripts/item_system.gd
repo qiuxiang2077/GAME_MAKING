@@ -63,7 +63,12 @@ func _use_calming_item(player) -> bool:
 	# 安抚附近的敌人
 	var emotion_system = get_node_or_null("/root/EmotionSystem")
 	if not emotion_system:
-		return false
+		# 尝试从当前场景查找
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			emotion_system = current_scene.get_node_or_null("EmotionSystem")
+		if not emotion_system:
+			return false
 	
 	var enemies = get_tree().get_nodes_in_group("enemy")
 	var calmed_any = false
@@ -78,17 +83,23 @@ func _use_calming_item(player) -> bool:
 func _use_light_item(player) -> bool:
 	# 临时增加视野（在深睡期有效）
 	var vision_system = get_node_or_null("/root/VisionSystem")
-	if vision_system:
-		vision_system.base_view_radius = min(vision_system.base_view_radius + 100, 500)
-		
-		# 5秒后恢复
-		var timer = get_tree().create_timer(5.0)
-		timer.timeout.connect(func():
-			if is_instance_valid(vision_system):
-				vision_system.base_view_radius = max(vision_system.base_view_radius - 100, 300)
-		)
-		return true
-	return false
+	if not vision_system:
+		# 尝试从当前场景查找
+		var current_scene = get_tree().current_scene
+		if current_scene:
+			vision_system = current_scene.get_node_or_null("VisionSystem")
+		if not vision_system:
+			return false
+	
+	vision_system.base_view_radius = min(vision_system.base_view_radius + 100, 500)
+	
+	# 5秒后恢复
+	var timer = get_tree().create_timer(5.0)
+	timer.timeout.connect(func():
+		if is_instance_valid(vision_system):
+			vision_system.base_view_radius = max(vision_system.base_view_radius - 100, 300)
+	)
+	return true
 
 func _use_protection_item(player) -> bool:
 	# 给玩家添加保护状态

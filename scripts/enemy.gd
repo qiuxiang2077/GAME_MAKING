@@ -22,8 +22,8 @@ var chase_timer = 0
 var chase_duration = 5.0
 var last_known_player_pos = Vector2.ZERO
 
-@onready var detection_area = $DetectionArea
-@onready var visual = $Visual
+@onready var detection_area = $DetectionArea if has_node("DetectionArea") else null
+@onready var visual = $Visual if has_node("Visual") else null
 
 func _ready():
 	start_position = position
@@ -100,13 +100,12 @@ func reset_to_patrol():
 		tween.tween_property(visual, "scale", Vector2(1.0, 1.0), 0.2)
 
 func _on_detection_area_entered(body):
-	if body.name == "Player" and not has_detected_player:
-		# 设计文档: 躲藏时不被发现
-		if not body.is_hiding:
-			detect_player()
+	if body and body.name == "Player" and not has_detected_player:
+		# 设计文档: 躲藏功能已移除，直接发现玩家
+		detect_player()
 
 func _on_detection_area_exited(body):
-	if body.name == "Player" and has_detected_player:
+	if body and body.name == "Player" and has_detected_player:
 		chase_timer = 0
 
 func detect_player():

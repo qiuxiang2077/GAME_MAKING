@@ -55,16 +55,24 @@ func _setup_timers():
 
 func _setup_subsystems():
 	# 浅睡期效果系统
-	light_sleep_effects = LightSleepEffects.new()
-	add_child(light_sleep_effects)
+	if Engine.is_editor_hint():
+		# 编辑器模式下不创建子系统
+		return
+	
+	# 浅睡期效果系统
+	if is_instance_valid(self):
+		light_sleep_effects = LightSleepEffects.new()
+		add_child(light_sleep_effects)
 	
 	# 视野系统
-	vision_system = VisionSystem.new()
-	add_child(vision_system)
+	if is_instance_valid(self):
+		vision_system = VisionSystem.new()
+		add_child(vision_system)
 	
 	# 情感系统
-	emotion_system = EmotionSystem.new()
-	add_child(emotion_system)
+	if is_instance_valid(self):
+		emotion_system = EmotionSystem.new()
+		add_child(emotion_system)
 
 func _on_timer_timeout():
 	if current_stage == SleepStage.DEEP_SLEEP:
@@ -78,7 +86,7 @@ func _on_timer_timeout():
 		
 		# 更新视野系统
 		var player = get_tree().get_first_node_in_group("player")
-		if player and vision_system:
+		if player and vision_system and is_instance_valid(vision_system):
 			vision_system.update_vision(player.global_position, fear_level, current_stage)
 
 	elif current_stage == SleepStage.REM:
@@ -88,7 +96,7 @@ func _on_timer_timeout():
 		emotional_energy_updated.emit(emotional_energy)
 		
 		# 显示敌人情感
-		if emotion_system:
+		if emotion_system and is_instance_valid(emotion_system):
 			emotion_system.reveal_emotions(current_stage)
 	
 	elif current_stage == SleepStage.LIGHT_SLEEP:
@@ -97,9 +105,9 @@ func _on_timer_timeout():
 	
 	else:
 		# 其他阶段关闭特殊效果
-		if vision_system:
+		if vision_system and is_instance_valid(vision_system):
 			vision_system.set_full_vision()
-		if emotion_system:
+		if emotion_system and is_instance_valid(emotion_system):
 			emotion_system.reveal_emotions(current_stage)
 
 func _update_stage_objective():
@@ -129,30 +137,30 @@ func _update_stage_objective():
 	objective_updated.emit(stage_fragments_collected, stage_fragments_required)
 
 func _start_light_sleep_effects():
-	if light_sleep_effects:
+	if light_sleep_effects and is_instance_valid(light_sleep_effects):
 		light_sleep_effects.start_fluctuation()
-	if vision_system:
+	if vision_system and is_instance_valid(vision_system):
 		vision_system.set_full_vision()
 
 func _start_deep_sleep_effects():
-	if light_sleep_effects:
+	if light_sleep_effects and is_instance_valid(light_sleep_effects):
 		light_sleep_effects.stop_fluctuation()
 	# 视野系统会在 _on_timer_timeout 中自动更新
 
 func _start_rem_effects():
-	if light_sleep_effects:
+	if light_sleep_effects and is_instance_valid(light_sleep_effects):
 		light_sleep_effects.stop_fluctuation()
-	if vision_system:
+	if vision_system and is_instance_valid(vision_system):
 		vision_system.set_full_vision()
-	if emotion_system:
+	if emotion_system and is_instance_valid(emotion_system):
 		emotion_system.reveal_emotions(current_stage)
 
 func _stop_stage_effects():
-	if light_sleep_effects:
+	if light_sleep_effects and is_instance_valid(light_sleep_effects):
 		light_sleep_effects.stop_fluctuation()
-	if vision_system:
+	if vision_system and is_instance_valid(vision_system):
 		vision_system.set_full_vision()
-	if emotion_system:
+	if emotion_system and is_instance_valid(emotion_system):
 		emotion_system.reveal_emotions(current_stage)
 
 func on_fragment_collected():

@@ -2,13 +2,14 @@ extends CharacterBody2D
 
 const SPEED = 200
 const RUN_SPEED = 350
+const INTERACT_RANGE = 50
 
-var is_hiding = false
+
 var is_running = false
 var is_pushing_box = false
 var pushed_box: Node2D = null
 
-@onready var visual = $Visual
+@onready var visual = $Visual if has_node("Visual") else null
 
 func _ready():
 	# 添加到玩家组，方便敌人查找
@@ -35,28 +36,14 @@ func _physics_process(_delta):
 	is_running = Input.is_action_pressed("run")
 	var current_speed = RUN_SPEED if is_running else SPEED
 	
-	# 躲藏控制
-	if Input.is_action_just_pressed("hide"):
-		is_hiding = !is_hiding
-		if is_hiding:
-			# 躲藏时视觉反馈
-			if visual:
-				visual.color = Color(0.2, 0.2, 0.2, 0.5)
-		else:
-			# 取消躲藏
-			if visual:
-				visual.color = Color(0, 0, 0, 1)
+	# 躲藏控制 - 已移除，根据用户要求
 	
-	# 只有在不躲藏时才能移动
-	if !is_hiding:
-		if input_dir != Vector2.ZERO:
-			input_dir = input_dir.normalized()
-			velocity = input_dir * current_speed
-		else:
-			# 停止移动
-			velocity = Vector2.ZERO
+	# 移动
+	if input_dir != Vector2.ZERO:
+		input_dir = input_dir.normalized()
+		velocity = input_dir * current_speed
 	else:
-		# 躲藏时不能移动
+		# 停止移动
 		velocity = Vector2.ZERO
 	
 	# 移动角色
@@ -127,16 +114,16 @@ func interact():
 	
 	if result.size() > 0:
 		var body = result[0].collider
-		if body.has_method("interact"):
+		if body and body.has_method("interact"):
 			body.interact()
 			print("Interacted with: " + body.name)
-		elif body.is_in_group("collectible"):
+		elif body and body.is_in_group("collectible"):
 			body.collect()
 			print("Collected: " + body.name)
 
 func _find_pushable_box() -> Node2D:
 	# 查找玩家面前的箱子
-	var space_state = get_world_2d().direct_space_state
+	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
 	if not space_state:
 		return null
 	
@@ -163,7 +150,7 @@ func _find_pushable_box() -> Node2D:
 	return _check_direction_for_box(input_dir.normalized())
 
 func _check_direction_for_box(direction: Vector2) -> Node2D:
-	var space_state = get_world_2d().direct_space_state
+	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
 	if not space_state:
 		return null
 	
@@ -175,12 +162,15 @@ func _check_direction_for_box(direction: Vector2) -> Node2D:
 	var result = space_state.intersect_ray(query)
 	if result:
 		var collider = result.collider
-		if collider.is_in_group("pushable") and collider.has_method("start_push"):
+		if collider and collider.is_in_group("pushable") and collider.has_method("start_push"):
 			return collider
 	
 	return null
 
 func _start_push_box(box: Node2D):
+	if not box:
+		return
+	
 	# 计算推的方向
 	var push_dir = (box.global_position - global_position).normalized()
 	
@@ -194,3 +184,10 @@ func _start_push_box(box: Node2D):
 		is_pushing_box = true
 		pushed_box = box
 		print("开始推箱子，方向: " + str(push_dir))
+
+func caught_by_enemy():
+	# 被敌人抓住，触发游戏结束
+	print("被敌人抓住！游戏结束")
+	var game_manager = get_node_or_null("/root/GameManager")
+	if game_manager:
+		game_manager.call_game_over()
