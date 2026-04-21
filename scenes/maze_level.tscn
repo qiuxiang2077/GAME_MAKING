@@ -13,10 +13,10 @@ size = Vector2(30, 30)
 size = Vector2(30, 30)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
-size = Vector2(40, 1200)
+size = Vector2(40, 1800)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
-size = Vector2(1600, 40)
+size = Vector2(2400, 40)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_inner_v1"]
 size = Vector2(40, 300)
@@ -53,14 +53,14 @@ script = ExtResource("2_b7d9r")
 z_index = -1
 offset_left = 0.0
 offset_top = 0.0
-offset_right = 1600.0
-offset_bottom = 1200.0
+offset_right = 2400.0
+offset_bottom = 1800.0
 color = Color(0.08, 0.08, 0.1, 1)
 
 [node name="MazeWalls" type="Node2D" parent="Environment"]
 
 [node name="OuterWall1" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(20, 600)
+position = Vector2(20, 900)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall1"]
@@ -68,13 +68,13 @@ shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="Visual" type="ColorRect" parent="Environment/MazeWalls/OuterWall1"]
 offset_left = -20.0
-offset_top = -600.0
+offset_top = -900.0
 offset_right = 20.0
-offset_bottom = 600.0
+offset_bottom = 900.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall2" type="StaticBody2D" parent="Environment/MazeWalls"]
-position = Vector2(1580, 600)
+position = Vector2(2380, 900)
 collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/MazeWalls/OuterWall2"]
@@ -82,9 +82,9 @@ shape = SubResource("RectangleShape2D_wall_v")
 
 [node name="Visual" type="ColorRect" parent="Environment/MazeWalls/OuterWall2"]
 offset_left = -20.0
-offset_top = -600.0
+offset_top = -900.0
 offset_right = 20.0
-offset_bottom = 600.0
+offset_bottom = 900.0
 color = Color(0.15, 0.15, 0.2, 1)
 
 [node name="OuterWall3" type="StaticBody2D" parent="Environment/MazeWalls"]
