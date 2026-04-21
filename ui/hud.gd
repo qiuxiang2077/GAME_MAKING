@@ -183,6 +183,8 @@ func _on_victory():
 		
 		await get_tree().create_timer(0.3).timeout
 		_animate_stars()
+		await get_tree().create_timer(2.0).timeout  # 给玩家时间欣赏胜利画面
+		_on_continue_pressed()
 
 func _animate_stars():
 	var star_container = victory_panel.get_node_or_null("StarContainer")

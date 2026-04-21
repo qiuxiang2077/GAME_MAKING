@@ -8,7 +8,7 @@ var current_cycle = 1
 var max_cycles = 5
 var dream_score = 0
 var current_level = 1
-var level_scenes = ["res://scenes/maze_level.tscn", "res://scenes/maze_level2.tscn"]
+var level_scenes = ["res://scenes/clinic_scene.tscn", "res://scenes/playground_scene.tscn"]
 
 # 信号
 signal memory_collected(count)
