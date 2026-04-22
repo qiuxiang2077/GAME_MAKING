@@ -189,6 +189,36 @@ theme_override_colors/font_color = Color(1, 0.9, 0.3, 1)
 text = "记忆碎片: 0/7"
 pivot_offset = Vector2(110, 9)
 
+[node name="StoryProgressLabel" type="Label" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 247.0
+offset_right = 348.0
+offset_bottom = 274.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.8, 0.6, 1, 1)
+text = "Story Progress: 0%"
+
+[node name="MoodLabel" type="Label" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 275.0
+offset_right = 348.0
+offset_bottom = 302.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(0.6, 0.8, 1, 1)
+text = "Mood: Contemplative"
+
+[node name="ChapterLabel" type="Label" parent="Control/StatusPanel"]
+layout_mode = 0
+offset_left = 18.0
+offset_top = 303.0
+offset_right = 348.0
+offset_bottom = 330.0
+theme_override_font_sizes/font_size = 18
+theme_override_colors/font_color = Color(1, 0.7, 0.8, 1)
+text = "Chapter: 1"
+
 [node name="RestartButton" type="Button" parent="Control"]
 layout_mode = 0
 offset_left = 24.0

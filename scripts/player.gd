@@ -4,10 +4,7 @@ const SPEED = 200
 const RUN_SPEED = 350
 const INTERACT_RANGE = 50
 
-
 var is_running = false
-var is_pushing_box = false
-var pushed_box: Node2D = null
 
 var max_health = 100
 var health = 100
@@ -18,19 +15,16 @@ signal health_updated(health, max_health)
 signal sanity_updated(sanity, max_sanity)
 
 @onready var visual = $Visual if has_node("Visual") else null
+@onready var game_manager = get_node("/root/GameManager")
+@onready var game_manager = get_node("/root/GameManager")
 
 func _ready():
-	# 添加到玩家组，方便敌人查找
+	# 添加到玩家组，方便查找
 	add_to_group("player")
 	health_updated.emit(health, max_health)
 	sanity_updated.emit(sanity, max_sanity)
 
 func _physics_process(_delta):
-	# 如果正在推箱子，优先处理推箱子逻辑
-	if is_pushing_box and pushed_box:
-		_handle_push_box()
-		return
-	
 	# 移动控制 - 俯视角，可以在X和Y轴自由移动
 	var input_dir = Vector2.ZERO
 	if Input.is_action_pressed("move_right"):
@@ -46,14 +40,11 @@ func _physics_process(_delta):
 	is_running = Input.is_action_pressed("run")
 	var current_speed = RUN_SPEED if is_running else SPEED
 	
-	# 躲藏控制 - 已移除，根据用户要求
-	
 	# 移动
 	if input_dir != Vector2.ZERO:
 		input_dir = input_dir.normalized()
 		velocity = input_dir * current_speed
 	else:
-		# 停止移动
 		velocity = Vector2.ZERO
 	
 	# 移动角色
@@ -95,20 +86,6 @@ func _stop_push_box():
 	print("停止推箱子")
 
 func interact():
-	# 如果已经在推箱子，停止推
-	if is_pushing_box:
-		_stop_push_box()
-		return
-	
-	# 优先检查是否可以推箱子
-	var box = _find_pushable_box()
-	if box:
-		_start_push_box(box)
-		return
-	
-	# 其他互动逻辑
-	print("Interact button pressed")
-	
 	# 检测周围可互动物体
 	var space_state = get_world_2d().direct_space_state if get_world_2d() else null
 	if not space_state:
@@ -127,6 +104,10 @@ func interact():
 		if body and body.has_method("interact"):
 			body.interact()
 			print("Interacted with: " + body.name)
+		elif body and body.is_in_group("character"):
+			# Narrative interaction with character
+			var dialogue = game_manager.interact_with_character(body.character_name)
+			print(body.character_name + ": " + dialogue)
 		elif body and body.is_in_group("collectible"):
 			body.collect()
 			print("Collected: " + body.name)
@@ -195,9 +176,43 @@ func _start_push_box(box: Node2D):
 		pushed_box = box
 		print("开始推箱子，方向: " + str(push_dir))
 
-func caught_by_enemy():
-	# 被敌人抓住，触发游戏结束
-	print("被敌人抓住！游戏结束")
+func _handle_farming_interaction() -> bool:
+	if not game_manager or not game_manager.farming_system:
+		return false
+	
+	match current_tool:
+		Tool.HOE:
+			# Till soil (plant crop)
+			var success = game_manager.plant_crop(selected_seed, global_position)
+			if success:
+				print("Planted " + selected_seed)
+			else:
+				print("Cannot plant here")
+			return true
+		Tool.SCYTHE:
+			# Harvest crop
+			var harvested_crop = game_manager.harvest_crop(global_position)
+			if harvested_crop:
+				print("Harvested " + harvested_crop)
+			else:
+				print("Nothing to harvest here")
+			return true
+		Tool.NONE:
+			# Check for NPC interaction
+			var npc = game_manager.npc_system.get_npc_at_position(global_position)
+			if npc:
+				var dialogue = game_manager.interact_with_npc(npc.name)
+				print(npc.name + ": " + dialogue)
+				return true
+	return false
+
+func set_tool(tool: Tool):
+	current_tool = tool
+	print("Switched to tool: " + Tool.keys()[tool])
+
+func set_seed_type(seed_type: String):
+	selected_seed = seed_type
+	print("Selected seed: " + seed_type)
 	var game_manager = get_node_or_null("/root/GameManager")
 	if game_manager:
 		game_manager.call_game_over()

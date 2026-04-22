@@ -9,6 +9,11 @@ var game_manager = null
 @onready var status_panel = $StatusPanel
 @onready var stage_advance_panel = $StageAdvancePanel
 
+# Farming UI elements
+@onready var story_progress_label = $StatusPanel/StoryProgressLabel
+@onready var mood_label = $StatusPanel/MoodLabel
+@onready var chapter_label = $StatusPanel/ChapterLabel
+
 var advance_panel_visible = false
 
 func _ready():
@@ -31,9 +36,16 @@ func _ready():
 	game_manager = get_node_or_null("/root/GameManager")
 	if game_manager:
 		game_manager.memory_collected.connect(_on_memory_collected)
-		game_manager.game_over.connect(_on_game_over)
-		game_manager.all_memories_collected.connect(_on_victory)
+		game_manager.story_progressed.connect(_on_story_progressed)
+		game_manager.mood_changed.connect(_on_mood_changed)
 		_update_memory_display(0)
+		_update_story_progress(0.0)
+		_update_mood("contemplative")
+		
+		# Connect narrative signals
+		if game_manager.narrative_system:
+			game_manager.narrative_system.chapter_changed.connect(_on_chapter_changed)
+			_on_chapter_changed(1)
 	
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_pressed)
@@ -216,3 +228,51 @@ func _on_continue_pressed():
 	else:
 		print("错误：未找到GameManager")
 		get_tree().reload_current_scene()
+
+func _on_gold_changed(amount: int):
+	_update_gold_display(amount)
+
+func _on_energy_changed(amount: int):
+	_update_energy_display(amount)
+
+func _on_time_updated(current_time: int, is_daytime: bool):
+	if time_label and game_manager and game_manager.time_system:
+		time_label.text = "Time: " + game_manager.time_system.get_time_string()
+
+func _on_season_changed(season: String):
+	if season_label:
+		season_label.text = "Season: " + season.capitalize()
+
+func _on_inventory_updated(inventory: Dictionary):
+	_update_inventory_display(inventory)
+
+func _on_story_progressed(progress: float):
+	_update_story_progress(progress)
+
+func _on_mood_changed(new_mood: String):
+	_update_mood(new_mood)
+
+func _on_chapter_changed(chapter: int):
+	if chapter_label:
+		chapter_label.text = "Chapter: " + str(chapter)
+
+func _update_gold_display(amount: int):
+	if gold_label:
+		gold_label.text = "Gold: " + str(amount)
+
+func _update_energy_display(amount: int):
+	if energy_label:
+		energy_label.text = "Energy: " + str(amount) + "/100"
+
+func _update_inventory_display(inventory: Dictionary):
+	if inventory_panel:
+		# Update inventory UI - this would need actual UI elements
+		print("Inventory updated: " + str(inventory))
+
+func _update_story_progress(progress: float):
+	if story_progress_label:
+		story_progress_label.text = "Story Progress: " + str(int(progress * 100)) + "%"
+
+func _update_mood(mood: String):
+	if mood_label:
+		mood_label.text = "Mood: " + mood.capitalize()
