@@ -40,7 +40,9 @@ func collect():
 	# 禁用碰撞
 	set_deferred("monitoring", false)
 	
-	# 增加分数或触发事件
+	# 增加分数或触发事件（使用兼容接口）
 	var game_manager = get_node_or_null("/root/GameManager")
-	if game_manager:
+	if game_manager and game_manager.has_method("collect_memory"):
+		game_manager.collect_memory("Found a memory fragment")
+	elif game_manager and game_manager.has_method("add_memory_fragment"):
 		game_manager.add_memory_fragment()

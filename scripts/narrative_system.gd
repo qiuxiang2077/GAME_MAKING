@@ -14,7 +14,7 @@ var environmental_effects: Array = []
 signal chapter_changed(new_chapter: int)
 signal story_progressed(progress: float)
 signal mood_changed(new_mood: String)
-signal character_interacted(character: Character, dialogue: String)
+signal character_interacted(character, dialogue)
 
 func _ready():
 	_initialize_characters()
@@ -29,9 +29,9 @@ func _initialize_characters():
 	characters["shadow"] = shadow
 	
 	# Connect signals
-	for char in characters.values():
-		char.relationship_changed.connect(_on_relationship_changed.bind(char))
-		char.memory_added.connect(_on_memory_added.bind(char))
+	for c in characters.values():
+		c.relationship_changed.connect(_on_relationship_changed.bind(c))
+		c.memory_added.connect(_on_memory_added.bind(c))
 
 func _initialize_story():
 	# Set up initial story state
@@ -41,16 +41,16 @@ func _initialize_story():
 
 func interact_with_character(character_name: String) -> String:
 	if characters.has(character_name):
-		var char = characters[character_name]
-		var dialogue = char.get_current_dialogue()
-		character_interacted.emit(char, dialogue)
-		
+		var character_obj = characters[character_name]
+		var dialogue = character_obj.get_current_dialogue()
+		character_interacted.emit(character_obj, dialogue)
+
 		# Improve relationship slightly on interaction
-		char.improve_relationship()
-		
+		character_obj.improve_relationship()
+
 		# Progress story based on interaction
 		_progress_story(0.05)
-		
+
 		return dialogue
 	return "Character not found."
 
@@ -119,15 +119,15 @@ func get_story_summary() -> String:
 	summary += "Mood: " + current_mood.capitalize() + "\n\n"
 	
 	for char_name in characters.keys():
-		var char = characters[char_name]
-		summary += char_name.capitalize() + ": " + char.get_relationship_name() + "\n"
-		if char.memories.size() > 0:
-			summary += "  Memories: " + str(char.memories.size()) + "\n"
+		var character_obj = characters[char_name]
+		summary += char_name.capitalize() + ": " + character_obj.get_relationship_name() + "\n"
+		if character_obj.memories.size() > 0:
+			summary += "  Memories: " + str(character_obj.memories.size()) + "\n"
 	
 	return summary
+func _on_relationship_changed(character, _new_level):
+	# called with the bound character as first parameter
+	print("Relationship with " + character.display_name + " improved to " + character.get_relationship_name())
 
-func _on_relationship_changed(new_level, character: Character):
-	print("Relationship with " + character.name + " improved to " + character.get_relationship_name())
-
-func _on_memory_added(memory: String, character: Character):
-	print("New memory about " + character.name + ": " + memory)
+func _on_memory_added(character, memory: String):
+	print("New memory about " + character.display_name + ": " + memory)

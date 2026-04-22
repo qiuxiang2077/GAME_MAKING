@@ -15,14 +15,27 @@ signal health_updated(health, max_health)
 signal sanity_updated(sanity, max_sanity)
 
 @onready var visual = $Visual if has_node("Visual") else null
-@onready var game_manager = get_node("/root/GameManager")
-@onready var game_manager = get_node("/root/GameManager")
+@onready var game_manager = null
+
+# Compatibility variables (push, simple tool state)
+var is_pushing_box = false
+var pushed_box: Node2D = null
+enum Tool { NONE, HOE, SCYTHE, WATERING_CAN }
+var current_tool = Tool.NONE
+var selected_seed = "wheat"
 
 func _ready():
 	# 添加到玩家组，方便查找
 	add_to_group("player")
 	health_updated.emit(health, max_health)
 	sanity_updated.emit(sanity, max_sanity)
+
+	# Resolve GameManager robustly
+	game_manager = get_node_or_null("/root/GameManager")
+	if not game_manager:
+		var root = get_tree().current_scene
+		if root and root.has_node("GameManager"):
+			game_manager = root.get_node("GameManager")
 
 func _physics_process(_delta):
 	# 移动控制 - 俯视角，可以在X和Y轴自由移动
@@ -177,7 +190,8 @@ func _start_push_box(box: Node2D):
 		print("开始推箱子，方向: " + str(push_dir))
 
 func _handle_farming_interaction() -> bool:
-	if not game_manager or not game_manager.farming_system:
+	# Only allow farming interactions if GameManager exposes farming methods
+	if not game_manager or not game_manager.has_method("plant_crop"):
 		return false
 	
 	match current_tool:
@@ -213,9 +227,6 @@ func set_tool(tool: Tool):
 func set_seed_type(seed_type: String):
 	selected_seed = seed_type
 	print("Selected seed: " + seed_type)
-	var game_manager = get_node_or_null("/root/GameManager")
-	if game_manager:
-		game_manager.call_game_over()
 
 func take_damage(amount):
 	health = max(0, health - amount)
@@ -245,6 +256,8 @@ func _check_sanity_effects():
 
 func die():
 	# 触发游戏结束
-	var game_manager = get_node_or_null("/root/GameManager")
-	if game_manager:
+	if game_manager and game_manager.has_method("call_game_over"):
 		game_manager.call_game_over()
+	else:
+		# Fallback: reload current scene
+		get_tree().reload_current_scene()

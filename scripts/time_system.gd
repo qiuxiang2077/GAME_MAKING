@@ -36,8 +36,8 @@ func _on_timer_timeout():
 		advance_day()
 	
 	# Emit time update signal
-	var is_daytime = is_daytime()
-	time_updated.emit(current_time, is_daytime)
+	var day_flag = is_daytime()
+	time_updated.emit(current_time, day_flag)
 
 func advance_day():
 	current_day += 1
@@ -59,7 +59,8 @@ func is_daytime() -> bool:
 	return current_time >= 360 and current_time <= 1320
 
 func get_time_string() -> String:
-	var hours = current_time / 60
+	var hours_f = current_time / 60.0
+	var hours = int(hours_f)
 	var minutes = current_time % 60
 	var am_pm = "AM" if hours < 12 else "PM"
 	if hours == 0:

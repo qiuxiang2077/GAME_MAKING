@@ -59,20 +59,15 @@ func _on_mood_changed(new_mood: String):
 	current_mood = new_mood
 	mood_changed.emit(new_mood)
 
-func _on_character_interacted(character: Character, dialogue: String):
-	print(character.name + ": " + dialogue)
+func _on_character_interacted(character, dialogue):
+	# Prefer Character.display_name when available, fallback to string
+	var label = "Unknown"
+	if character:
+		if typeof(character) == TYPE_OBJECT and character.has_method("get_relationship_name"):
+			label = character.display_name
+		else:
+			label = str(character)
+	print(label + ": " + dialogue)
 
 
-func load_next_level():
-	current_level += 1
-	if current_level > level_scenes.size():
-		current_level = 1
-	
-	var next_scene_path = level_scenes[current_level - 1]
-	
-	reset_game()
-	
-	var error = get_tree().change_scene_to_file(next_scene_path)
-	if error != OK:
-		print("加载关卡失败: ", error)
-		get_tree().change_scene_to_file(level_scenes[0])
+# level progression removed in narrative refactor

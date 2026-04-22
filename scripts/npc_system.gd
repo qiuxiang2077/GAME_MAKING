@@ -74,7 +74,7 @@ func give_gift(npc_name: String, gift_type: String) -> String:
 			return response
 	return "NPC not found."
 
-func get_gift_value(gift_type: String, npc_name: String) -> int:
+func get_gift_value(gift_type: String, _npc_name: String) -> int:
 	# Simple gift system - can be expanded
 	match gift_type:
 		"wheat":

@@ -14,6 +14,13 @@ var game_manager = null
 @onready var mood_label = $StatusPanel/MoodLabel
 @onready var chapter_label = $StatusPanel/ChapterLabel
 
+# Optional UI nodes (may be absent after refactor)
+var gold_label = null
+var energy_label = null
+var time_label = null
+var season_label = null
+var inventory_panel = null
+
 var advance_panel_visible = false
 
 func _ready():
@@ -33,19 +40,37 @@ func _ready():
 			_on_fear_updated(sleep_manager.fear_level)
 			_on_objective_updated(0, sleep_manager.stage_fragments_required)
 	
+	# Resolve GameManager robustly
 	game_manager = get_node_or_null("/root/GameManager")
+	if not game_manager:
+		var scene_root = get_tree().current_scene
+		if scene_root and scene_root.has_node("GameManager"):
+			game_manager = scene_root.get_node("GameManager")
+
 	if game_manager:
-		game_manager.memory_collected.connect(_on_memory_collected)
-		game_manager.story_progressed.connect(_on_story_progressed)
-		game_manager.mood_changed.connect(_on_mood_changed)
+		if game_manager.has_signal("memory_collected"):
+			game_manager.memory_collected.connect(_on_memory_collected)
+		if game_manager.has_signal("story_progressed"):
+			game_manager.story_progressed.connect(_on_story_progressed)
+		if game_manager.has_signal("mood_changed"):
+			game_manager.mood_changed.connect(_on_mood_changed)
 		_update_memory_display(0)
 		_update_story_progress(0.0)
 		_update_mood("contemplative")
-		
-		# Connect narrative signals
-		if game_manager.narrative_system:
-			game_manager.narrative_system.chapter_changed.connect(_on_chapter_changed)
-			_on_chapter_changed(1)
+
+		# Connect narrative signals if available as a child node
+		if game_manager.has_node("NarrativeSystem"):
+			var narrative = game_manager.get_node("NarrativeSystem")
+			if narrative and narrative.has_signal("chapter_changed"):
+				narrative.chapter_changed.connect(_on_chapter_changed)
+				_on_chapter_changed(1)
+
+		# Populate optional UI node references safely
+		gold_label = status_panel.get_node_or_null("GoldLabel") if status_panel else null
+		energy_label = status_panel.get_node_or_null("EnergyLabel") if status_panel else null
+		time_label = status_panel.get_node_or_null("TimeLabel") if status_panel else null
+		season_label = status_panel.get_node_or_null("SeasonLabel") if status_panel else null
+		inventory_panel = get_node_or_null("InventoryPanel")
 	
 	if restart_button:
 		restart_button.pressed.connect(_on_restart_pressed)
@@ -65,7 +90,7 @@ func _ready():
 	if later_button:
 		later_button.pressed.connect(_hide_advance_panel)
 
-func _process(delta):
+func _process(_delta):
 	if sleep_manager:
 		_on_fear_updated(sleep_manager.fear_level)
 	
@@ -85,7 +110,7 @@ func _on_stage_changed(stage):
 				2: stage_label.add_theme_color_override("font_color", Color(0.6, 0.3, 0.8, 1))
 				3: stage_label.add_theme_color_override("font_color", Color(1, 0.6, 0.8, 1))
 
-func _on_cycle_completed(cycle_num):
+func _on_cycle_completed(_cycle_num):
 	if status_panel:
 		var cycle_label = status_panel.get_node_or_null("CycleLabel")
 		if cycle_label and sleep_manager:
@@ -217,17 +242,13 @@ func _on_restart_pressed():
 		tween.tween_property(restart_button, "scale", Vector2(0.9, 0.9), 0.08)
 		tween.tween_property(restart_button, "scale", Vector2(1.0, 1.0), 0.08)
 	
-	if game_manager:
+	if game_manager and game_manager.has_method("reset_game"):
 		game_manager.reset_game()
 	get_tree().reload_current_scene()
 
 func _on_continue_pressed():
-	var game_manager = get_node_or_null("/root/GameManager")
-	if game_manager:
-		game_manager.load_next_level()
-	else:
-		print("错误：未找到GameManager")
-		get_tree().reload_current_scene()
+	# In narrative mode, continue simply reloads or advances scene as appropriate
+	get_tree().reload_current_scene()
 
 func _on_gold_changed(amount: int):
 	_update_gold_display(amount)
@@ -235,7 +256,7 @@ func _on_gold_changed(amount: int):
 func _on_energy_changed(amount: int):
 	_update_energy_display(amount)
 
-func _on_time_updated(current_time: int, is_daytime: bool):
+func _on_time_updated(_current_time: int, _is_daytime: bool):
 	if time_label and game_manager and game_manager.time_system:
 		time_label.text = "Time: " + game_manager.time_system.get_time_string()
 

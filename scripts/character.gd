@@ -6,7 +6,7 @@ extends Node
 
 enum Relationship { STRANGER, ACQUAINTANCE, FRIEND, CLOSE_FRIEND, FAMILY }
 
-var name: String
+var display_name: String
 var description: String
 var relationship: Relationship = Relationship.STRANGER
 var dialogue_tree: Dictionary = {}  # relationship level -> [dialogues]
@@ -18,7 +18,7 @@ signal relationship_changed(new_level: Relationship)
 signal memory_added(memory: String)
 
 func _init(char_name: String, char_description: String, start_location: Vector2):
-	name = char_name
+	display_name = char_name
 	description = char_description
 	location = start_location
 	_initialize_dialogue()
@@ -63,7 +63,7 @@ func get_current_dialogue() -> String:
 
 func improve_relationship():
 	if relationship < Relationship.FAMILY:
-		relationship += 1
+		relationship = (int(relationship) + 1) as Relationship
 		relationship_changed.emit(relationship)
 
 func add_memory(memory_text: String):

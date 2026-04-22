@@ -35,10 +35,16 @@ signal crop_grew(crop: Crop)
 signal crop_harvested(crop: Crop, amount: int)
 signal inventory_updated(inventory: Dictionary)
 
-@onready var time_system = get_node("/root/GameManager/TimeSystem")
+@onready var time_system = null
 
 func _ready():
-	if time_system:
+	# Resolve time system robustly
+	time_system = get_node_or_null("/root/GameManager/TimeSystem")
+	if not time_system:
+		var gm = get_node_or_null("/root/GameManager")
+		if gm and gm.has_method("time_system"):
+			time_system = gm.time_system
+	if time_system and time_system.has_method("day_changed"):
 		time_system.day_changed.connect(_on_day_changed)
 
 func plant_crop(crop_type: String, position: Vector2) -> bool:
@@ -72,7 +78,7 @@ func harvest_crop(position: Vector2) -> String:
 	
 	return ""  # No harvestable crop found
 
-func _on_day_changed(new_day: int):
+func _on_day_changed(_new_day: int):
 	# Grow crops each day
 	for crop in planted_crops:
 		if not crop.harvestable:

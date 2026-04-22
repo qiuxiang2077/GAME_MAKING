@@ -60,7 +60,7 @@ func _apply_item_effect(item_type: ItemType) -> bool:
 	return false
 
 func _use_calming_item(player) -> bool:
-	# 安抚附近的敌人
+	# 安抚附近的角色情绪（非战斗化设计）
 	var emotion_system = get_node_or_null("/root/EmotionSystem")
 	if not emotion_system:
 		# 尝试从当前场景查找
@@ -69,18 +69,18 @@ func _use_calming_item(player) -> bool:
 			emotion_system = current_scene.get_node_or_null("EmotionSystem")
 		if not emotion_system:
 			return false
-	
-	var enemies = get_tree().get_nodes_in_group("enemy")
+
+	var subjects = get_tree().get_nodes_in_group("character")
 	var calmed_any = false
-	
-	for enemy in enemies:
-		if player.global_position.distance_to(enemy.global_position) < 150:
-			if emotion_system.calm_enemy(enemy):
+
+	for s in subjects:
+		if is_instance_valid(s) and player.global_position.distance_to(s.global_position) < 150:
+			if emotion_system.calm_enemy(s):
 				calmed_any = true
-	
+
 	return calmed_any
 
-func _use_light_item(player) -> bool:
+func _use_light_item(_player) -> bool:
 	# 临时增加视野（在深睡期有效）
 	var vision_system = get_node_or_null("/root/VisionSystem")
 	if not vision_system:
@@ -114,7 +114,7 @@ func _use_protection_item(player) -> bool:
 	print("获得保护护盾！")
 	return true
 
-func _use_memory_item(player) -> bool:
+func _use_memory_item(_player) -> bool:
 	# 高亮显示附近的记忆碎片
 	var collectibles = get_tree().get_nodes_in_group("collectible")
 	var highlighted = false
@@ -145,8 +145,8 @@ func _get_item_name(item_type: ItemType) -> String:
 
 func get_item_description(item_type: ItemType) -> String:
 	match item_type:
-		ItemType.CALMING: return "安抚附近的情绪怪物"
+		ItemType.CALMING: return "安抚附近的角色情绪"
 		ItemType.LIGHT: return "临时增加视野范围"
-		ItemType.PROTECTION: return "抵挡一次敌人攻击"
+		ItemType.PROTECTION: return "抵挡一次伤害"
 		ItemType.MEMORY: return "显示附近的记忆碎片"
 		_: return ""
