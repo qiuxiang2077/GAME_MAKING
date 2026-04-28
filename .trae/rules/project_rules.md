@@ -14,10 +14,18 @@
 
 ```
 GAME_MAKING/
-├── openspec/          # 变更管理
-├── 设定/              # 游戏设定
-├── 项目管理/          # Agent文档
-└── .trae/rules/       # 本规则
+├── game/               # Godot游戏项目（开这个目录跑游戏）
+│   ├── scenes/         # Godot场景
+│   ├── scripts/        # GDScript
+│   ├── ui/             # UI系统
+│   └── project.godot   # 项目文件
+├── dev/                # 开发辅助
+│   ├── docs/           # 文档（设定.md、agents.md、tech/）
+│   ├── wiki/           # 游戏百科HTML
+│   ├── openspec/       # 变更管理
+│   └── README.md       # 项目说明
+├── .trae/              # AI规则（隐藏）
+└── LICENSE
 ```
 
 ## Agent协作
@@ -27,6 +35,8 @@ GAME_MAKING/
 | 准备 | D | 聊天记录 → 设定数据库 |
 | 编码 | A→B+C | 设定 → 需求/代码/美术 |
 | 瓶颈 | OpenSpec+A | 问题 → 决策方案 |
+
+> Agent详情见 [dev/docs/agents.md](file:///Users/qiufu/AAA_GitHub_project/GAME_MAKING/dev/docs/agents.md)
 
 ## 关键规则
 
