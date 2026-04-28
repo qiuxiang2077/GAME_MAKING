@@ -24,7 +24,7 @@ GAME_MAKING/
 │   ├── assets/         # 资源文件
 │   ├── levels/         # 关卡
 │   └── project.godot   # 项目文件
-├── dev/                # 开发辅助
+├── development/        # 开发辅助
 │   ├── docs/           # 文档（设定.md、agents.md、tech/）
 │   ├── wiki/           # 游戏百科HTML
 │   ├── openspec/       # 变更管理
@@ -55,5 +55,5 @@ GAME_MAKING/
 ## 重要原则
 
 - **文档优先**：变更先更新文档，再执行实现
-- **单文件设定**：所有游戏设定统一在 `dev/docs/设定.md`
-- **实现映射**：代码变更需同步更新 `dev/docs/tech/实现映射.md`
+- **单文件设定**：所有游戏设定统一在 `development/docs/设定.md`
+- **实现映射**：代码变更需同步更新 `development/docs/tech/实现映射.md`

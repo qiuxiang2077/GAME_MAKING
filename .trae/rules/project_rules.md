@@ -19,7 +19,7 @@ GAME_MAKING/
 │   ├── scripts/        # GDScript
 │   ├── ui/             # UI系统
 │   └── project.godot   # 项目文件
-├── dev/                # 开发辅助
+├── development/        # 开发辅助
 │   ├── docs/           # 文档（设定.md、agents.md、tech/）
 │   ├── wiki/           # 游戏百科HTML
 │   ├── openspec/       # 变更管理
